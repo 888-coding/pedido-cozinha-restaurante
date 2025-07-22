@@ -18,3 +18,5 @@
 - Os produtos após ser feito tem que imprimir, 2 vias. 
 	- Primeira via para o Caixa 
 	- Segunda via para a Cozinha 
+	
+- Os pedidos devem ser gravados para futura consulta 
