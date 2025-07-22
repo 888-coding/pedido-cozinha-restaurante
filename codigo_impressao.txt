@@ -1,0 +1,30 @@
+# main.py
+import win32print
+import win32ui
+import curses 
+from curses	import wrapper
+
+
+# Nome da impressora instalado no windows 
+printer_name = "SWEDA SI-300S"
+
+# Texto para imprimir 
+mensagem = "printing 死者"
+
+# Abrir a impressora
+hprinter = win32print.OpenPrinter(printer_name)
+printer_info = win32print.GetPrinter(hprinter, 2)
+
+# Inicia o trabalho de impressao 
+hDC = win32ui.CreateDC()
+hDC.CreatePrinterDC(printer_name)
+hDC.StartDoc("Teste Python")
+hDC.StartPage()
+
+# Fonte Chines 
+font = win32ui.CreateFont({"name": "SimSum", "height": 70, "weight": 700})
+hDC.SelectObject(font)
+hDC.TextOut(100,100,mensagem)
+hDC.EndPage()
+hDC.EndDoc()
+hDC.DeleteDC()
