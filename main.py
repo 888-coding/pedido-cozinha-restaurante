@@ -35,8 +35,8 @@ def create_table_orders():
 	cur.execute(sql)
 	con.close()
 
-# Criação da tabela de Items_e_Pedido:
-def order_items():
+# Criação da tabela de Pedido_e_itens:
+def create_table_order_items():
 	con = sqlite3.connect("database.db")
 	sql = """
 		CREATE TABLE IF NOT EXISTS order_items(
@@ -55,4 +55,4 @@ def order_items():
 create_database()
 create_table_products()
 create_table_orders()
-
+create_table_order_items()
