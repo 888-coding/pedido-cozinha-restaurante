@@ -15,6 +15,8 @@
 - Pedidos:
 	- ID do pedido
 		- int, autoincremento
+	- Numero da mesa 
+		- text, 50 
 	- Data do pedido
 		-  Date
 	- ID do produto
