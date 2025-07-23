@@ -2,13 +2,12 @@
 import sqlite3
 
 
-##### Banco de dados #####
-# Criação do banco de dados 
+# NOTE: BANCO- Criação do banco de dados 
 def create_database():
 	con = sqlite3.connect("database.db")
 	con.close()
 
-# Criação da tabela de produtos
+# NOTE: Criação da tabela de produtos
 def create_table_products():
 	con = sqlite3.connect("database.db")
 	sql = """
@@ -22,7 +21,7 @@ def create_table_products():
 	cur.execute(sql)
 	con.close()
 
-# Criaçao da tabela de pedidos 
+# NOTE: BANCO - Criaçao da tabela de pedidos 
 def create_table_orders():
 	con = sqlite3.connect("database.db")
 	sql = """
@@ -37,7 +36,7 @@ def create_table_orders():
 	cur.execute(sql)
 	con.close()
 
-# Criação da tabela de Pedido_e_itens:
+# NOTE: BANCO - Criação da tabela de Pedido_e_itens:
 def create_table_order_items():
 	con = sqlite3.connect("database.db")
 	sql = """
@@ -53,7 +52,7 @@ def create_table_order_items():
 	cur.execute(sql)
 	con.close()
 
-# Menu : Principal
+# NOTE: Menu : Principal
 def show_main_menu():
 	print("================")
 	print("7PAM MARKET LTDA")
@@ -74,19 +73,19 @@ def show_main_menu():
 	else:
 		show_reports_menu()
 
-# Menu : Pedidos 
+# NOTE: Menu : Pedidos 
 def show_order_menu():
 	pass
 
-# Menu : Produtos 
+# NOTE: Menu : Produtos 
 def show_product_menu():
 	pass
 
-# Menu : Relatorios
+# NOTE: Menu : Relatorios
 def show_reports_menu():
 	pass
 
-# Procedimentos
+# NOTE: Procedimentos
 create_database()
 create_table_products()
 create_table_orders()
