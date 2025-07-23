@@ -53,6 +53,7 @@ def create_table_order_items():
 	cur.execute(sql)
 	con.close()
 
+# Menu : Principal
 def show_main_menu():
 	print("================")
 	print("7PAM MARKET LTDA")
@@ -62,8 +63,28 @@ def show_main_menu():
 	print("2. Produtos")
 	print("3. Relatorios")
 	print("")
-	selected_option = input("Digite escolha : ")
+	while True: 
+		selected_option = int(input("Digite escolha : "))
+		if selected_option == 1 or selected_option == 2 or selected_option == 3:
+			break
+	if selected_option == 1:
+		show_order_menu()
+	elif selected_option == 2:
+		show_product_menu()
+	else:
+		show_reports_menu()
 
+# Menu : Pedidos 
+def show_order_menu():
+	pass
+
+# Menu : Produtos 
+def show_product_menu():
+	pass
+
+# Menu : Relatorios
+def show_reports_menu():
+	pass
 
 # Procedimentos
 create_database()
