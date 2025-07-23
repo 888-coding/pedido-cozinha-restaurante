@@ -34,7 +34,9 @@
 	- ID do Produto 
 		- int
 	- quantidade
-		- Preco unitario 
+		- int
+	- Preco unitario 
+		- int
 
  * Isto é necessário porque é intermediario do pedido e produto 
 
