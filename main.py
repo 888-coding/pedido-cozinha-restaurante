@@ -1,6 +1,8 @@
 # main.py 
 import sqlite3
 
+
+##### Banco de dados #####
 # Criação do banco de dados 
 def create_database():
 	con = sqlite3.connect("database.db")
@@ -51,8 +53,21 @@ def create_table_order_items():
 	cur.execute(sql)
 	con.close()
 
+def show_main_menu():
+	print("================")
+	print("7PAM MARKET LTDA")
+	print("> MENU")
+	print("================")
+	print("1. Pedidos")
+	print("2. Produtos")
+	print("3. Relatorios")
+	print("")
+	selected_option = input("Digite escolha : ")
+
+
 # Procedimentos
 create_database()
 create_table_products()
 create_table_orders()
 create_table_order_items()
+show_main_menu()
