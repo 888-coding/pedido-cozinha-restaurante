@@ -88,7 +88,18 @@ def show_product_menu():
 	# Cadastro de produto 
 	# Consulta do produto 
 	# Alterar nome do produto 
-	# Alterar preco do produto 
+	# Alterar preco do produto
+
+	print("")
+	print("===========") 
+	print("> Produtos")
+	print("===========")
+	print("1. Cadastrar produto")
+	print("2. Consultar")
+	print("3. Alterar nome do produto")
+	print("4. Alterar preco do produto")
+	print("")
+	selected_option = input("Digite a opcao : ") 
 	pass
 
 # NOTE: Menu : Relatorios
