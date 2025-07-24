@@ -1,6 +1,6 @@
 # main.py 
 import sqlite3
-
+from datetime import datetime 
 
 # NOTE: BANCO- Criação do banco de dados 
 def create_database():
@@ -75,10 +75,20 @@ def show_main_menu():
 
 # NOTE: Menu : Pedidos 
 def show_order_menu():
+	# TODO:  
+	# Precisa dizer o numero da mesa 
+	# Precisa adicionar os produtos desejados 
+	# Cada vez que digita o codigo do produto, 
+	# mostra o nome do produto 
 	pass
 
 # NOTE: Menu : Produtos 
 def show_product_menu():
+	# TODO: 
+	# Cadastro de produto 
+	# Consulta do produto 
+	# Alterar nome do produto 
+	# Alterar preco do produto 
 	pass
 
 # NOTE: Menu : Relatorios
