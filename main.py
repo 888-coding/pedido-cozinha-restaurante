@@ -26,7 +26,7 @@ def create_table_orders():
 	con = sqlite3.connect("database.db")
 	sql = """
 		CREATE TABLE IF NOT EXISTS orders(
-		id INTERGER PRIMARY KEY,
+		id INTERGER PRIMARY KEY AUTOINCREMENT,
 		table_number TEXT, 
 		order_date DATE, 
 		total_value INTEGER 
