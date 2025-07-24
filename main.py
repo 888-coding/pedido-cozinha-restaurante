@@ -99,12 +99,23 @@ def show_product_menu():
 	print("3. Alterar nome do produto")
 	print("4. Alterar preco do produto")
 	print("")
-	selected_option = input("Digite a opcao : ") 
+	selected_option = int(input("Digite a opcao : ")) 
+	if selected_option == 1:
+		produto_cadastro()
 	pass
 
 # NOTE: Menu : Relatorios
 def show_reports_menu():
 	pass
+
+# NOTE: Produtos > Cadastro 
+def produto_cadastro():
+	print("\n ====================")
+	print(" Cadastro de produto") 
+	print(" ====================")
+	numero_comida = int(input("Numero da comida : "))
+	nome_comida = input("Nome da comida : ").upper()
+	valor_comida = 	input("Valor da comida : R$ ")
 
 # NOTE: Procedimentos
 create_database()
