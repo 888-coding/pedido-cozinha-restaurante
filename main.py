@@ -2,7 +2,7 @@
 import sqlite3
 from datetime import datetime
 import os 
-
+import time 
 # NOTE: BANCO- Criação do banco de dados 
 def create_database():
 	con = sqlite3.connect("database.db")
@@ -35,6 +35,7 @@ def create_table_orders():
 	"""
 	cur = con.cursor()
 	cur.execute(sql)
+	con.commit()
 	con.close()
 
 # NOTE: BANCO - Criação da tabela de Pedido_e_itens:
@@ -118,7 +119,21 @@ def produto_cadastro():
 	print(" ====================")
 	numero_comida = int(input("Numero da comida : "))
 	nome_comida = input("Nome da comida : ").upper()
-	valor_comida = 	input("Valor da comida : R$ ")
+	valor_comida = 	float(input("Valor da comida : R$ "))
+	valor_comida = int(valor_comida * 100)
+
+	# Conexao com banco de dados
+	con = sqlite3.connect("database.db")
+	sql = """
+	INSERT INTO products(id, name, price) VALUES(?, ?, ?)
+	"""
+	cur = con.cursor()
+	cur.execute(sql, (numero_comida, nome_comida, valor_comida))
+	con.commit()
+	con.close()
+	print("\n\n Cadastrado com sucesso !!!")
+	time.sleep(4)
+	show_main_menu()
 
 # NOTE: Procedimentos
 create_database()
