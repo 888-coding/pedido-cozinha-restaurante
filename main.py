@@ -108,7 +108,10 @@ def show_product_menu():
 		produto_cadastro()
 	elif selected_option == 2:
 		produtos_consultarTodo()
-
+	elif selected_option == 3:
+		pass
+	else:
+		produto_alterarPreco()
 # NOTE: Menu : Relatorios
 def show_reports_menu():
 	pass
@@ -149,6 +152,21 @@ def produtos_consultarTodo():
 	con.close()
 	input("\nDigite para continuar ... ")
 	show_main_menu()
+
+def produto_alterarPreco():
+	os.system("cls")
+	print("Alteracao de preco : ")
+	codigo_comida = int(input("\nDigite o numero da comida : "))
+	sql = "SELECT * FROM products WHERE id = ?"
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	cur.execute(sql, (codigo_comida,))
+	rows = cur.fetchall()
+	con.close()
+
+	for row in rows :
+		print(row)
+	input("Digite algo para voltar ao menu principal ...")
 # NOTE: Procedimentos
 create_database()
 create_table_products()
