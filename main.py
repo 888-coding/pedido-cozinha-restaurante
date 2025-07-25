@@ -1,6 +1,7 @@
 # main.py 
 import sqlite3
-from datetime import datetime 
+from datetime import datetime
+import os 
 
 # NOTE: BANCO- Criação do banco de dados 
 def create_database():
@@ -54,6 +55,7 @@ def create_table_order_items():
 
 # NOTE: Menu : Principal
 def show_main_menu():
+	os.system("cls")
 	print("================")
 	print("7PAM MARKET LTDA")
 	print("> MENU")
@@ -61,6 +63,7 @@ def show_main_menu():
 	print("1. Pedidos")
 	print("2. Produtos")
 	print("3. Relatorios")
+	print("4. Sair")
 	print("")
 	while True: 
 		selected_option = int(input("Digite escolha : "))
