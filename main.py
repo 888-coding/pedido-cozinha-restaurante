@@ -106,7 +106,8 @@ def show_product_menu():
 	selected_option = int(input("Digite a opcao : ")) 
 	if selected_option == 1:
 		produto_cadastro()
-	pass
+	elif selected_option == 2:
+		produtos_consultarTodo()
 
 # NOTE: Menu : Relatorios
 def show_reports_menu():
@@ -135,6 +136,19 @@ def produto_cadastro():
 	time.sleep(4)
 	show_main_menu()
 
+def produtos_consultarTodo():
+	sql= "SELECT * FROM products ORDER BY id ASC"
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	cur.execute(sql)
+	rows = cur.fetchall()
+	os.system("cls")
+	for row in rows:
+		print(f"{row}")
+
+	con.close()
+	input("\nDigite para continuar ... ")
+	show_main_menu()
 # NOTE: Procedimentos
 create_database()
 create_table_products()
