@@ -110,7 +110,7 @@ def show_product_menu():
 	elif selected_option == 2:
 		produtos_consultarTodo()
 	elif selected_option == 3:
-		pass
+		produto_alterarNome()
 	else:
 		produto_alterarPreco()
 # NOTE: Menu : Relatorios
@@ -152,6 +152,41 @@ def produtos_consultarTodo():
 
 	con.close()
 	input("\nDigite para continuar ... ")
+	show_main_menu()
+def produto_alterarNome():
+	os.system("cls")
+	print("Alteracao de nome da comida : ")
+	codigo_comida = input("\nDigite o numero da comida : ")
+	sql = "SELECT * FROM products WHERE id = ?"
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	cur.execute(sql, (codigo_comida,) )
+	rows = cur.fetchall()
+	con.close()
+
+	for row in rows : 
+		i = 0 
+		for i in range(3):
+			if i == 0:
+				id_product = int(row[0])
+				print(f"Numero da comida : {row[0]}")
+			elif i == 1:
+				print(f"Nome da comida : {row[1]}")
+			else:
+				print(f"Preco da comida : {row[2]}")
+	print("Novo nome da comida ")
+	novo_nome_comida = input("Digite o nome novo da comida : ").upper()
+
+	# Conexao banco de dados para alterar nome 
+	sql = "UPDATE products SET name = ? WHERE ID = ? "
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	cur.execute(sql, (novo_nome_comida, id_product,))
+	con.commit()
+	con.close()
+
+	print("Atualizacao feita com sucesso , nome alterado!")
+	input("\nDigite algo para continuar ...")
 	show_main_menu()
 
 def produto_alterarPreco():
