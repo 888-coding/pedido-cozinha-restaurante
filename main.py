@@ -68,15 +68,16 @@ def show_main_menu():
 	print("")
 	while True: 
 		selected_option = int(input("Digite escolha : "))
-		if selected_option == 1 or selected_option == 2 or selected_option == 3:
+		if selected_option == 1 or selected_option == 2 or selected_option == 3 or selected_option == 4 :
 			break
 	if selected_option == 1:
 		show_order_menu()
 	elif selected_option == 2:
 		show_product_menu()
-	else:
+	elif selected_option == 3:
 		show_reports_menu()
-
+	else:
+		exit()
 # NOTE: Menu : Pedidos 
 def show_order_menu():
 	# TODO:  
@@ -164,9 +165,31 @@ def produto_alterarPreco():
 	rows = cur.fetchall()
 	con.close()
 
-	for row in rows :
-		print(row)
-	input("Digite algo para voltar ao menu principal ...")
+	for row in rows:
+		i = 0 
+		for i in range(3):
+			if i == 0 :
+				id_product = int(row[0])
+				print(f"Numero de comida : {row[i]}")
+			elif i == 1 :
+				print(f"Nome da comida : {row[1]}")
+			else : 
+				print(f"Preco da comida : {row[2]}")
+		
+	print("/n/nQual valor novo vc deseja ?")
+	novo_valor = int(input("Digite novo valor : R$ "))
+
+	# Conexao banco de dados para atualizar 
+	sql = "UPDATE products SET price = ? WHERE ID = ? "
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	cur.execute(sql, (novo_valor,id_product,))
+	con.commit()
+	con.close()
+	print("\n\nAtualizacao feita .. ")
+
+	input("\nDigite algo para voltar ao menu principal ...")
+	show_main_menu()
 # NOTE: Procedimentos
 create_database()
 create_table_products()
