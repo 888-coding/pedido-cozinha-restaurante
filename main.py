@@ -118,29 +118,58 @@ def insert_order():
 
 	con.close()
 
+	# Looping de adicionar itens
 	# Quando digitar 0 , não adiciona mais itens
-	print("\n Adicione item : ")
-	numero_comida_inserir = input("Digite numero da comida : ")
+	while True:
+		print("\n Adicione item : ")
+		numero_comida_inserir = input("Digite numero da comida : ")
+		print("\n(Para sair digite comida como 0)")
+		if numero_comida_inserir == "0":
+			break
+		else:
+			con = sqlite3.connect("database.db")
+			cur = con.cursor()
+			sql = "SELECT * FROM products WHERE id = ?"
+			cur.execute(sql, (numero_comida_inserir,))
+			rows = cur.fetchone()
+			con.close()
+			if rows :
+				# Comida encontrada
+				con = sqlite3.connect("database.db")
+				cur = con.cursor()
+				sql = "INSERT INTO order_items(order_id, product_id, product_qty, product_value) VALUES (?, ?, ?, ?)"
+				cur.execute(sql,(id_order, numero_comida_inserir, 1,rows[2],))
+				con.commit()
+				con.close()
+			else:
+				# Nao existe comida
+				print("\nErro , numero da comida nao encontrada.") 
+	# Fim do Looping adicionando itens. 
+		
+	# Mostrar Dados do pedido.
+	os.system("cls")
+	print("\n\n   DADOS DO PEDIDO : ")
+	print(f"NUMERO DO PEDIDO : {id_order}")
 
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
-	sql = "SELECT * FROM products WHERE id = ?"
-	cur.execute(sql, (numero_comida_inserir,))
-	rows = cur.fetchone()
+	sql = "SELECT * FROM order_items WHERE order_id = ? "
+	cur.execute(sql, (id_order,))
+	rows = cur.fetchall()
 	con.close()
-	if len(rows) > 0 :
-		# Comida encontrada
+
+	for row in rows:
+		# Mostrar todos os itens do pedido 
 		con = sqlite3.connect("database.db")
 		cur = con.cursor()
-		sql = "INSERT INTO order_items(order_id, product_id, product_qty, product_value) VALUES (?, ?, ?, ?)"
-		cur.execute(sql,(id_order, numero_comida_inserir, 1,rows[2],))
-		con.commit()
+		sql = "SELECT name FROM products WHERE id = ? "
+		cur.execute(sql, (row[2],))
+		nome_comida = cur.fetchone()
+		cur.close()
 		con.close()
-	else:
-		# Nao existe comida 
-		pass
-	
+		print(f"Numero da comida : {row[2]}  - {nome_comida[0]} - Valor da comida :  {row[4]}")
 
+	input("\nDigite algo para continuar ..")
 # NOTE: Menu : Produtos 
 def show_product_menu():
 	# TODO: 
