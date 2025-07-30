@@ -167,9 +167,11 @@ def insert_order():
 		nome_comida = cur.fetchone()
 		cur.close()
 		con.close()
-		print(f"Numero da comida : {row[2]}  - {nome_comida[0]} - Valor da comida :  {row[4]}")
+		print(f"     Numero da comida : {row[2]}  - {nome_comida[0]} - Valor da comida :  {row[4]}")
 
 	input("\nDigite algo para continuar ..")
+
+	
 # NOTE: Menu : Produtos 
 def show_product_menu():
 	# TODO: 
