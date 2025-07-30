@@ -89,6 +89,18 @@ def show_order_menu():
 	print("===========") 
 	print("> Pedido")
 	print("===========")
+	print("\n1. Novo Pedido")
+	print("\n2. Consultar pedidos de hoje")
+
+	selected_option = int(input("Escolha a opcao : "))
+	if selected_option == 1:
+		insert_order()
+	
+def insert_order():
+	os.system("cls")
+	print("===========") 
+	print("> Pedido")
+	print("===========")
 	numero_mesa = input("Digite o numero da mesa : ") 
 	# data_pedido = date.today()
 	data_hora_pedido = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
@@ -106,8 +118,29 @@ def show_order_menu():
 
 	con.close()
 
-	# Quando digitar 0 , não adiciona mais itens 
+	# Quando digitar 0 , não adiciona mais itens
+	print("\n Adicione item : ")
+	numero_comida_inserir = input("Digite numero da comida : ")
+
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	sql = "SELECT * FROM products WHERE id = ?"
+	cur.execute(sql, (numero_comida_inserir,))
+	rows = cur.fetchone()
+	con.close()
+	if len(rows) > 0 :
+		# Comida encontrada
+		con = sqlite3.connect("database.db")
+		cur = con.cursor()
+		sql = "INSERT INTO order_items(order_id, product_id, product_qty, product_value) VALUES (?, ?, ?, ?)"
+		cur.execute(sql,(id_order, numero_comida_inserir, 1,rows[2],))
+		con.commit()
+		con.close()
+	else:
+		# Nao existe comida 
+		pass
 	
+
 # NOTE: Menu : Produtos 
 def show_product_menu():
 	# TODO: 
