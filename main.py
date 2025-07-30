@@ -1,6 +1,6 @@
 # main.py 
 import sqlite3
-from datetime import datetime
+from datetime import datetime, date
 import os 
 import time 
 # NOTE: BANCO- Criação do banco de dados 
@@ -85,8 +85,29 @@ def show_order_menu():
 	# Precisa adicionar os produtos desejados 
 	# Cada vez que digita o codigo do produto, 
 	# mostra o nome do produto 
-	pass
+	os.system("cls")
+	print("===========") 
+	print("> Pedido")
+	print("===========")
+	numero_mesa = input("Digite o numero da mesa : ") 
+	# data_pedido = date.today()
+	data_hora_pedido = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
+	print(f"Data e hora : {data_hora_pedido}")
+	print(data_hora_pedido)
 
+	# Conexao com banco de dados 
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	sql = "INSERT INTO orders(table_number, order_date) VALUES (?, ?)"
+	cur.execute(sql, (numero_mesa, data_hora_pedido,))
+	con.commit()
+	id_order = cur.lastrowid
+	print(f"Temporario :: ID do pedido é : {id_order}")
+
+	con.close()
+
+	# Quando digitar 0 , não adiciona mais itens 
+	
 # NOTE: Menu : Produtos 
 def show_product_menu():
 	# TODO: 
