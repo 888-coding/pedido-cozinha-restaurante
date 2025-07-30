@@ -3,6 +3,8 @@ import sqlite3
 from datetime import datetime, date
 import os 
 import time 
+import win32print
+import win32ui
 # NOTE: BANCO- Criação do banco de dados 
 def create_database():
 	con = sqlite3.connect("database.db")
@@ -169,9 +171,27 @@ def insert_order():
 		con.close()
 		print(f"     Numero da comida : {row[2]}  - {nome_comida[0]} - Valor da comida :  {row[4]}")
 
-	input("\nDigite algo para continuar ..")
+	input("\nDigite algo para continuar com impressao ..")
 
+	# Impressão em imprimessora térmica SWEDA 
 	
+	printer_name = "SWEDA SI-300S" # Nome da impressora 
+	mensagem = " DATA : " & data_hora_pedido # Mensagem para imprimir
+	hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
+	printer_info = win32print.GetPrinter(hprinter, 2)
+	hDC = win32ui.CreateDC() # Iniciar o trabalho de impressao
+	hDC.CreatePrinterDC(printer_name)
+	hDC.StartDoc("Teste Python")
+	hDC.StartPage()
+	# Fonte Chines 
+	font = win32ui.CreateFont({"name": "SimSum", "height": 30, "weight": 300})
+	hDC.SelectObject(font)
+	hDC.TextOut(100,100,mensagem)
+	hDC.EndPage()
+	hDC.EndDoc()
+	hDC.DeleteDC()
+
+
 # NOTE: Menu : Produtos 
 def show_product_menu():
 	# TODO: 
