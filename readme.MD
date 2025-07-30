@@ -52,3 +52,12 @@
 	- Total do mes 
 	- Relatorio de mais vendidos 
 	
+
+
+# Problemas 
+
+## Librarys 
+
+- Para windows 
+	- instalar pywin32 
+	
