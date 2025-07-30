@@ -90,11 +90,7 @@ def show_order_menu():
 # NOTE: Menu : Produtos 
 def show_product_menu():
 	# TODO: 
-	# Cadastro de produto 
-	# Consulta do produto 
-	# Alterar nome do produto 
-	# Alterar preco do produto
-
+	os.system("cls")
 	print("")
 	print("===========") 
 	print("> Produtos")
