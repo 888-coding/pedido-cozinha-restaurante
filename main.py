@@ -172,8 +172,9 @@ def insert_order():
 
 	input("\nDigite algo para continuar com impressao ..")
 
-	# Impressão em imprimessora térmica SWEDA 
-	
+	# Impressão em imprimessora térmica SWEDA
+	# > Impressao do cabeçalho
+	# > Imprimir data do pedido  
 	printer_name = "SWEDA SI-300S" # Nome da impressora 
 	mensagem = " DATA : " + str(data_hora_pedido) # Mensagem para imprimir
 	hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
@@ -182,14 +183,61 @@ def insert_order():
 	hDC.CreatePrinterDC(printer_name)
 	hDC.StartDoc("Teste Python")
 	hDC.StartPage()
-	# Fonte Chines 
-	font = win32ui.CreateFont({"name": "SimSum", "height": 30, "weight": 300})
+	font = win32ui.CreateFont({"name": "SimSum", "height": 30, "weight": 300}) # Fonte Chines
 	hDC.SelectObject(font)
 	hDC.TextOut(100,100,mensagem)
 	hDC.EndPage()
 	hDC.EndDoc()
 	hDC.DeleteDC()
 
+	# > Imprimir Numero do pedido 
+	printer_name = "SWEDA SI-300S" # Nome da impressora 
+	mensagem = " PEDIDO : " + str(id_order) # Mensagem para imprimir
+	hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
+	printer_info = win32print.GetPrinter(hprinter, 2)
+	hDC = win32ui.CreateDC() # Iniciar o trabalho de impressao
+	hDC.CreatePrinterDC(printer_name)
+	hDC.StartDoc("Teste Python")
+	hDC.StartPage()
+	font = win32ui.CreateFont({"name": "SimSum", "height": 70, "weight": 700})# Fonte Chines
+	hDC.SelectObject(font)
+	hDC.TextOut(100,100,mensagem)
+	hDC.EndPage()
+	hDC.EndDoc()
+	hDC.DeleteDC()
+
+	# > Imprimir dos itens de pedido
+	sql = "SELECT * FROM order_items WHERE order_id = ? "	
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	cur.execute(sql, (id_order) )
+	rows = cur.fetchall()
+	cur.close()
+	con.close()
+	for row in rows:
+		comida_numero = row[1]
+		comida_quantidade = row[2]
+		comida_valor = row[3]
+		sql = "SELECT name FROM products WHERE id = ? "
+		con = sqlite3.connect("database.db")
+		cur = con.cursor()
+		cur.execute(sql, (comida_numero,))
+		comida_nome = cur.fetchone()[0]
+		printer_name = "SWEDA SI-300S" # Nome da impressora 
+		mensagem = " " + str(id_order) + " " + str(comida_numero) + " " str(comida_nome) + " " + str(comida_valor) # Mensagem para imprimir
+		hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
+		printer_info = win32print.GetPrinter(hprinter, 2)
+		hDC = win32ui.CreateDC() # Iniciar o trabalho de impressao
+		hDC.CreatePrinterDC(printer_name)
+		hDC.StartDoc("Teste Python")
+		hDC.StartPage()
+		font = win32ui.CreateFont({"name": "SimSum", "height": 70, "weight": 700})# Fonte Chines
+		hDC.SelectObject(font)
+		hDC.TextOut(100,100,mensagem)
+		hDC.EndPage()
+		hDC.EndDoc()
+		hDC.DeleteDC()
+		pass
 
 # NOTE: Menu : Produtos 
 def show_product_menu():
