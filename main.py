@@ -29,7 +29,6 @@ def create_table_orders():
 	con = sqlite3.connect("database.db")
 	sql = """
 		CREATE TABLE IF NOT EXISTS orders(
-		id INTERGER PRIMARY KEY AUTOINCREMENT,
 		table_number TEXT, 
 		order_date DATE, 
 		total_value INTEGER 
@@ -176,7 +175,7 @@ def insert_order():
 	# Impressão em imprimessora térmica SWEDA 
 	
 	printer_name = "SWEDA SI-300S" # Nome da impressora 
-	mensagem = " DATA : " & data_hora_pedido # Mensagem para imprimir
+	mensagem = " DATA : " + str(data_hora_pedido) # Mensagem para imprimir
 	hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
 	printer_info = win32print.GetPrinter(hprinter, 2)
 	hDC = win32ui.CreateDC() # Iniciar o trabalho de impressao
@@ -238,7 +237,7 @@ def produto_cadastro():
 	con.commit()
 	con.close()
 	print("\n\n Cadastrado com sucesso !!!")
-	time.sleep(4)
+	time.sleep(2)
 	show_main_menu()
 
 def produtos_consultarTodo():
