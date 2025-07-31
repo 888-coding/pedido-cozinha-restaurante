@@ -174,7 +174,7 @@ def insert_order():
 
 	# Impressão em imprimessora térmica SWEDA
 	# > Impressao do cabeçalho
-	# > Imprimir data do pedido  
+	# > Imprimir data do pedido (Letra fonte menor) 
 	printer_name = "SWEDA SI-300S" # Nome da impressora 
 	mensagem = " DATA : " + str(data_hora_pedido) # Mensagem para imprimir
 	hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
@@ -190,7 +190,7 @@ def insert_order():
 	hDC.EndDoc()
 	hDC.DeleteDC()
 
-	# > Imprimir Numero do pedido 
+	# > Imprimir Numero do pedido (Letra Fonte maior)
 	printer_name = "SWEDA SI-300S" # Nome da impressora 
 	mensagem = " PEDIDO : " + str(id_order) # Mensagem para imprimir
 	hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
