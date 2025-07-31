@@ -224,7 +224,7 @@ def insert_order():
 		cur.execute(sql, (comida_numero,))
 		comida_nome = cur.fetchone()[0]
 		printer_name = "SWEDA SI-300S" # Nome da impressora 
-		mensagem = " " + str(id_order) + " " + str(comida_numero) + " " str(comida_nome) + " " + str(comida_valor) # Mensagem para imprimir
+		mensagem = " " + str(id_order) + " " + str(comida_numero) + " " + str(comida_nome) + " " + str(comida_valor) # Mensagem para imprimir
 		hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
 		printer_info = win32print.GetPrinter(hprinter, 2)
 		hDC = win32ui.CreateDC() # Iniciar o trabalho de impressao
