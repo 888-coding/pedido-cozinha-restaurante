@@ -91,9 +91,9 @@ def show_order_menu():
 	print("> Pedido")
 	print("===========")
 	print("\n1. Novo Pedido")
-	print("\n2. Consultar pedidos de hoje")
+	print("2. Consultar pedidos de hoje")
 
-	selected_option = int(input("Escolha a opcao : "))
+	selected_option = int(input("\nEscolha a opcao : "))
 	if selected_option == 1:
 		insert_order()
 	
@@ -190,22 +190,6 @@ def insert_order():
 	hDC.EndDoc()
 	hDC.DeleteDC()
 
-	# > Imprimir Numero do pedido (Letra Fonte maior)
-	printer_name = "SWEDA SI-300S" # Nome da impressora 
-	mensagem = " PEDIDO : " + str(id_order) # Mensagem para imprimir
-	hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
-	printer_info = win32print.GetPrinter(hprinter, 2)
-	hDC = win32ui.CreateDC() # Iniciar o trabalho de impressao
-	hDC.CreatePrinterDC(printer_name)
-	hDC.StartDoc("Teste Python")
-	hDC.StartPage()
-	font = win32ui.CreateFont({"name": "SimSum", "height": 70, "weight": 700})# Fonte Chines
-	hDC.SelectObject(font)
-	hDC.TextOut(100,100,mensagem)
-	hDC.EndPage()
-	hDC.EndDoc()
-	hDC.DeleteDC()
-
 	# > Imprimir dos itens de pedido
 	sql = "SELECT * FROM order_items WHERE order_id = ? "	
 	con = sqlite3.connect("database.db")
@@ -216,7 +200,7 @@ def insert_order():
 	con.close()
 	for row in rows:
 		comida_numero = row[1]
-		comida_quantidade = row[2]
+		# comida_quantidade = row[2]
 		comida_valor = row[3]
 		sql = "SELECT name FROM products WHERE id = ? "
 		con = sqlite3.connect("database.db")
@@ -237,7 +221,7 @@ def insert_order():
 		hDC.EndPage()
 		hDC.EndDoc()
 		hDC.DeleteDC()
-		pass
+		show_main_menu()
 
 # NOTE: Menu : Produtos 
 def show_product_menu():
