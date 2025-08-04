@@ -185,9 +185,7 @@ def insert_order():
 	font = win32ui.CreateFont({"name": "SimSum", "height": 30, "weight": 300}) # Fonte Chines
 	hDC.SelectObject(font)
 	hDC.TextOut(30,50,mensagem)
-	hDC.EndPage()
-	hDC.EndDoc()
-	hDC.DeleteDC()
+	
 
 	# > Imprimir dos itens de pedido
 	sql = "SELECT * FROM order_items WHERE order_id = ? "	
@@ -197,7 +195,9 @@ def insert_order():
 	rows = cur.fetchall()
 	cur.close()
 	con.close()
+	
 	linha = 80 
+	
 	for row in rows:
 		comida_numero = row[1]
 		# comida_quantidade = row[2]
@@ -208,25 +208,18 @@ def insert_order():
 		cur.execute(sql, (comida_numero,))
 		comida_nome = cur.fetchone()[0]
 		
-		printer_name = "SWEDA SI-300S" # Nome da impressora 
-		hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
-		printer_info = win32print.GetPrinter(hprinter, 2)
-		hDC = win32ui.CreateDC() # Iniciar o trabalho de impressao
-		hDC.CreatePrinterDC(printer_name)
-		hDC.StartDoc("Teste Python")
-		hDC.StartPage()
-		
 		mensagem = " " + str(id_order) + " " + str(comida_numero) + " " + str(comida_nome) + " " + str(comida_valor) # Mensagem para imprimir
 
 		font = win32ui.CreateFont({"name": "SimSum", "height": 70, "weight": 700})# Fonte Chines
 		hDC.SelectObject(font)
-		hDC.TextOut(30,i,mensagem)
+		hDC.TextOut(30,linha,mensagem)
 		
-		hDC.EndPage()
-		hDC.EndDoc()
-		hDC.DeleteDC()
 
-		i += 40
+		linha += 40
+
+	hDC.EndPage()
+	hDC.EndDoc()
+	hDC.DeleteDC()
 
 	show_main_menu()
 
