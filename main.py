@@ -151,14 +151,18 @@ def insert_order():
 	os.system("cls")
 	print("\n\n   DADOS DO PEDIDO : ")
 	print(f"NUMERO DO PEDIDO : {id_order}")
-
+	impressao_linha_data = data_hora_pedido
+	impressao_linha_pedido = "No. : " + str(id_order)
+	impressao_linhas= []
+	impressao_linhas.append(impressao_linha_data)
+	impressao_linhas.append(impressao_linha_pedido)
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
 	sql = "SELECT * FROM order_items WHERE order_id = ? "
 	cur.execute(sql, (id_order,))
 	rows = cur.fetchall()
 	con.close()
-
+	valor_total = 0
 	for row in rows:
 		# Mostrar todos os itens do pedido 
 		con = sqlite3.connect("database.db")
@@ -166,16 +170,20 @@ def insert_order():
 		sql = "SELECT name FROM products WHERE id = ? "
 		cur.execute(sql, (row[2],))
 		nome_comida = cur.fetchone()
+		impressao_linha_comida = str(row[2]) + "- " + str(nome_comida[0] + " " + str(row[4]))
+		impressao_linhas.append(impressao_linha_comida)
+		valor_total += int(row[4])
 		cur.close()
 		con.close()
 		print(f"     Numero da comida : {row[2]}  - {nome_comida[0]} - Valor da comida :  {row[4]}")
 
+	print(f"Valor total {valor_total}")
+	impressao_linhas.append(valor_total)
 	input("\nDigite algo para continuar com impressao ..")
 
 	# Impressão em imprimessora térmica SWEDA
 	
 	printer_name = "SWEDA SI-300S" # Nome da impressora 
-	mensagem = " DATA : " + str(data_hora_pedido) # Mensagem para imprimir
 	hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
 	printer_info = win32print.GetPrinter(hprinter, 2)
 	hDC = win32ui.CreateDC() # Iniciar o trabalho de impressao
@@ -184,39 +192,13 @@ def insert_order():
 	hDC.StartPage()
 	font = win32ui.CreateFont({"name": "SimSum", "height": 30, "weight": 300}) # Fonte Chines
 	hDC.SelectObject(font)
-	hDC.TextOut(30,50,mensagem)
+	mensagem = " DATA : " + str(data_hora_pedido) # Mensagem para imprimir
+	left = 20
+	top = 30
+	for impressao_linha in impressao_linhas:
+		hDC.TextOut(left,top,mensagem)
+		top += 40
 	
-
-	# > Imprimir dos itens de pedido
-	sql = "SELECT * FROM order_items WHERE order_id = ? "	
-	con = sqlite3.connect("database.db")
-	cur = con.cursor()
-	cur.execute(sql, (id_order) )
-	rows = cur.fetchall()
-	cur.close()
-	con.close()
-	
-	linha = 80 
-	
-	for row in rows:
-		comida_numero = row[1]
-		# comida_quantidade = row[2]
-		comida_valor = row[3]
-		sql = "SELECT name FROM products WHERE id = ? "
-		con = sqlite3.connect("database.db")
-		cur = con.cursor()
-		cur.execute(sql, (comida_numero,))
-		comida_nome = cur.fetchone()[0]
-		
-		mensagem = " " + str(id_order) + " " + str(comida_numero) + " " + str(comida_nome) + " " + str(comida_valor) # Mensagem para imprimir
-
-		font = win32ui.CreateFont({"name": "SimSum", "height": 70, "weight": 700})# Fonte Chines
-		hDC.SelectObject(font)
-		hDC.TextOut(30,linha,mensagem)
-		
-
-		linha += 40
-
 	hDC.EndPage()
 	hDC.EndDoc()
 	hDC.DeleteDC()
