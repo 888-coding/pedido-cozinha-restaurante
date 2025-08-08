@@ -170,12 +170,14 @@ def insert_order():
 		sql = "SELECT name FROM products WHERE id = ? "
 		cur.execute(sql, (row[2],))
 		nome_comida = cur.fetchone()
-		impressao_linha_comida = str(row[2]) + "- " + str(nome_comida[0] + " " + str(row[4]))
+		codigo_comida = row[2]
+		preco_comida = row[4]
+		impressao_linha_comida = str(codigo_comida) + "- " + str(nome_comida[0] + " " + str(preco_comida))
 		impressao_linhas.append(impressao_linha_comida)
-		valor_total += int(row[4])
+		valor_total += int(preco_comida)
 		cur.close()
 		con.close()
-		print(f"     Numero da comida : {row[2]}  - {nome_comida[0]} - Valor da comida :  {row[4]}")
+		print(f"     Numero da comida : {codigo_comida}  - {nome_comida[0]} - Valor da comida :  {preco_comida}")
 
 	print(f"Valor total {valor_total}")
 	impressao_linhas.append(valor_total)
