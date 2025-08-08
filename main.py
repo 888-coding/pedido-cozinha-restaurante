@@ -96,6 +96,8 @@ def show_order_menu():
 	selected_option = int(input("\nEscolha a opcao : "))
 	if selected_option == 1:
 		insert_order()
+	elif selected_option == 2:
+		orders_today()
 	
 def insert_order():
 	os.system("cls")
@@ -182,7 +184,7 @@ def insert_order():
 	print(f"Valor total {valor_total}")
 	impressao_linhas.append(valor_total)
 	input("\nDigite algo para continuar com impressao ..")
-
+	"""
 	# Impressão em imprimessora térmica SWEDA
 	
 	printer_name = "SWEDA SI-300S" # Nome da impressora 
@@ -204,8 +206,29 @@ def insert_order():
 	hDC.EndPage()
 	hDC.EndDoc()
 	hDC.DeleteDC()
-
+	"""
 	show_main_menu()
+
+def orders_today():
+	# TODO: Mostrar as vendas do dia 
+	os.system("cls")
+	print("Pedidos > Vendas do dia >")
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	data_hoje = date.today()
+	sql = "SELECT ROWID, table_number, total_value FROM orders WHERE DATE(order_date) = ? "
+	cur.execute(sql, (data_hoje,))
+	rows = cur.fetchall()
+	cur.close()
+	venda_do_dia = 0
+	for row in rows:
+		rowid = row[0]
+		table_number = row[1]
+		total_value = row[2]
+		venda_do_dia += total_value
+		print(f"Pedido : {rowid}  Mesa : {table_number}  .  Valor total : {total_value}")
+		#aqui
+	con.close()
 
 # NOTE: Menu : Produtos 
 def show_product_menu():
