@@ -123,6 +123,7 @@ def insert_order():
 
 	# Looping de adicionar itens
 	# Quando digitar 0 , não adiciona mais itens
+	valor_total = 0 
 	while True:
 		print("\n Adicione item : ")
 		numero_comida_inserir = input("Digite numero da comida : ")
@@ -140,15 +141,26 @@ def insert_order():
 				# Comida encontrada
 				con = sqlite3.connect("database.db")
 				cur = con.cursor()
+				valor_comida = int(rows[2])
+				valor_total += valor_comida
 				sql = "INSERT INTO order_items(order_id, product_id, product_qty, product_value) VALUES (?, ?, ?, ?)"
-				cur.execute(sql,(id_order, numero_comida_inserir, 1,rows[2],))
+				cur.execute(sql,(id_order, numero_comida_inserir, 1,valor_comida,))
 				con.commit()
 				con.close()
 			else:
 				# Nao existe comida
 				print("\nErro , numero da comida nao encontrada.") 
 	# Fim do Looping adicionando itens. 
-		
+	
+	# Atualizar valor total na tabela de orders
+	sql = "UPDATE orders SET total_value = ? WHERE ROWID = ? "
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	cur.execute(sql, (valor_total, id_order,) )
+	cur.close()
+	con.commit()
+	con.close()
+
 	# Mostrar Dados do pedido.
 	os.system("cls")
 	print("\n\n   DADOS DO PEDIDO : ")
@@ -227,7 +239,7 @@ def orders_today():
 		total_value = row[2]
 		venda_do_dia += total_value
 		print(f"Pedido : {rowid}  Mesa : {table_number}  .  Valor total : {total_value}")
-		#aqui
+		print(f"Valor total : {venda_do_dia}")
 	con.close()
 
 # NOTE: Menu : Produtos 
