@@ -212,7 +212,7 @@ def insert_order():
 	left = 20
 	top = 30
 	for impressao_linha in impressao_linhas:
-		hDC.TextOut(left,top,mensagem)
+		hDC.TextOut(left,top,impressao_linha)
 		top += 40
 	
 	hDC.EndPage()
