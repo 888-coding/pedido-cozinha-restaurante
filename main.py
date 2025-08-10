@@ -71,11 +71,11 @@ def show_main_menu():
 		selected_option = input("Digite escolha : ")
 		if selected_option == "1" or selected_option == "2" or selected_option == "3" or selected_option == "4" :
 			break
-	if selected_option == 1:
+	if selected_option == "1":
 		show_order_menu()
-	elif selected_option == 2:
+	elif selected_option == "2":
 		show_product_menu()
-	elif selected_option == 3:
+	elif selected_option == "3":
 		show_reports_menu()
 	else:
 		exit()
