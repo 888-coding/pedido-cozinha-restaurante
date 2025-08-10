@@ -68,8 +68,8 @@ def show_main_menu():
 	print("4. Sair")
 	print("")
 	while True: 
-		selected_option = int(input("Digite escolha : "))
-		if selected_option == 1 or selected_option == 2 or selected_option == 3 or selected_option == 4 :
+		selected_option = input("Digite escolha : ")
+		if selected_option == "1" or selected_option == "2" or selected_option == "3" or selected_option == "4" :
 			break
 	if selected_option == 1:
 		show_order_menu()
