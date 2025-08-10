@@ -165,11 +165,13 @@ def insert_order():
 	os.system("cls")
 	print("\n\n   DADOS DO PEDIDO : ")
 	print(f"NUMERO DO PEDIDO : {id_order}")
-	impressao_linha_data = data_hora_pedido
-	impressao_linha_pedido = "No. : " + str(id_order)
 	impressao_linhas= []
+	impressao_linha_data = str(data_hora_pedido)
 	impressao_linhas.append(impressao_linha_data)
+	impressao_linha_pedido = "No. : " + str(id_order)
+	impressao_linha_mesa = "Mesa : " + str(numero_mesa)
 	impressao_linhas.append(impressao_linha_pedido)
+	impressao_linhas.append(impressao_linha_mesa)
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
 	sql = "SELECT * FROM order_items WHERE order_id = ? "
@@ -186,7 +188,7 @@ def insert_order():
 		nome_comida = cur.fetchone()
 		codigo_comida = row[2]
 		preco_comida = row[4]
-		impressao_linha_comida = str(codigo_comida) + "- " + str(nome_comida[0] + " " + str(preco_comida))
+		impressao_linha_comida = str(codigo_comida) + "- " + str(nome_comida[0]) + " " + str(preco_comida)
 		impressao_linhas.append(impressao_linha_comida)
 		valor_total += int(preco_comida)
 		cur.close()
@@ -194,12 +196,15 @@ def insert_order():
 		print(f"     Numero da comida : {codigo_comida}  - {nome_comida[0]} - Valor da comida :  {preco_comida}")
 
 	print(f"Valor total {valor_total}")
-	impressao_linhas.append(valor_total)
+	impressao_linhas.append(str(valor_total))
 	input("\nDigite algo para continuar com impressao ..")
-	"""
+	
+	for linha in impressao_linhas:
+		print(linha)
+	time.sleep(3)
 	# Impressão em imprimessora térmica SWEDA
 	
-	printer_name = "SWEDA SI-300S" # Nome da impressora 
+	printer_name = "Microsoft Print to PDF" # Nome da impressora 
 	hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
 	printer_info = win32print.GetPrinter(hprinter, 2)
 	hDC = win32ui.CreateDC() # Iniciar o trabalho de impressao
@@ -218,7 +223,7 @@ def insert_order():
 	hDC.EndPage()
 	hDC.EndDoc()
 	hDC.DeleteDC()
-	"""
+	
 	show_main_menu()
 
 def orders_today():
