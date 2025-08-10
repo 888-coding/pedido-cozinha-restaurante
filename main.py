@@ -93,10 +93,14 @@ def show_order_menu():
 	print("\n1. Novo Pedido")
 	print("2. Consultar pedidos de hoje")
 
-	selected_option = int(input("\nEscolha a opcao : "))
-	if selected_option == 1:
+	while True:
+		selected_option = input("\nEscolha a opcao : ")
+		if selected_option == "1" or selected_option == "2":
+			break 
+
+	if selected_option == "1":
 		insert_order()
-	elif selected_option == 2:
+	elif selected_option == "2":
 		orders_today()
 	
 def insert_order():
@@ -260,12 +264,15 @@ def show_product_menu():
 	print("3. Alterar nome do produto")
 	print("4. Alterar preco do produto")
 	print("")
-	selected_option = int(input("Digite a opcao : ")) 
-	if selected_option == 1:
+	while True: 
+		selected_option = input("Digite a opcao : ")
+		if selected_option == "1" or selected_option == "2":
+			break 
+	if selected_option == "1":
 		produto_cadastro()
-	elif selected_option == 2:
+	elif selected_option == "2":
 		produtos_consultarTodo()
-	elif selected_option == 3:
+	elif selected_option == "3":
 		produto_alterarNome()
 	else:
 		produto_alterarPreco()
