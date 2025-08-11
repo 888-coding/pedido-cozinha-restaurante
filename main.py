@@ -217,7 +217,6 @@ def insert_order():
 	hDC.StartPage()
 	font = win32ui.CreateFont({"name": "SimSum", "height": 30, "weight": 300}) # Fonte Chines
 	hDC.SelectObject(font)
-	mensagem = " DATA : " + str(data_hora_pedido) # Mensagem para imprimir
 	left = 20
 	top = 30
 	for impressao_linha in impressao_linhas:
