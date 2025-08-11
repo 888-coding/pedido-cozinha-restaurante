@@ -266,7 +266,7 @@ def show_product_menu():
 	print("")
 	while True: 
 		selected_option = input("Digite a opcao : ")
-		if selected_option == "1" or selected_option == "2":
+		if selected_option == "1" or selected_option == "2" or selected_option == "3" or selected_option == "4":
 			break 
 	if selected_option == "1":
 		produto_cadastro()
@@ -278,7 +278,17 @@ def show_product_menu():
 		produto_alterarPreco()
 # NOTE: Menu : Relatorios
 def show_reports_menu():
-	pass
+	os.system("cls")
+	print("> Relatorios > ")
+	print("===============")
+	print("1. Vendas por periodo (todos produtos)")
+	print("2. Vendas por periodo (um produto)")
+
+	while True:
+		selected_option = input("Digite o item desejado : ")
+		if selected_option == "1" or selected_option == "2":
+			break
+	#aqui
 
 # NOTE: Produtos > Cadastro 
 def produto_cadastro():
@@ -287,8 +297,7 @@ def produto_cadastro():
 	print(" ====================")
 	numero_comida = int(input("Numero da comida : "))
 	nome_comida = input("Nome da comida : ").upper()
-	valor_comida = 	float(input("Valor da comida : R$ "))
-	valor_comida = int(valor_comida * 100)
+	valor_comida = 	int(float(input("Valor da comida : R$ ")) * 100)
 
 	# Conexao com banco de dados
 	con = sqlite3.connect("database.db")
@@ -375,7 +384,7 @@ def produto_alterarPreco():
 				print(f"Preco da comida : {row[2]}")
 		
 	print("/n/nQual valor novo vc deseja ?")
-	novo_valor = int(input("Digite novo valor : R$ "))
+	novo_valor = int(float(input("Digite novo valor : R$ ")) * 100)
 
 	# Conexao banco de dados para atualizar 
 	sql = "UPDATE products SET price = ? WHERE ID = ? "
