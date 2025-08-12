@@ -192,15 +192,17 @@ def insert_order():
 		nome_comida = cur.fetchone()
 		codigo_comida = row[2]
 		preco_comida = row[4]
-		impressao_linha_comida = str(codigo_comida) + "- " + str(nome_comida[0]) + " " + str(preco_comida)
+		#impressao_linha_comida = str(codigo_comida) + "- " + str(nome_comida[0]) + " " + str((preco_comida/100):.2f)
+		impressao_linha_comida = f"{codigo_comida} - {nome_comida[0]} {preco_comida/100:.2f}"
 		impressao_linhas.append(impressao_linha_comida)
 		valor_total += int(preco_comida)
 		cur.close()
 		con.close()
-		print(f"     Numero da comida : {codigo_comida}  - {nome_comida[0]} - Valor da comida :  {preco_comida}")
+		print(f"     Numero da comida : {codigo_comida}  - {nome_comida[0]} - Valor da comida :  {(preco_comida/100):.2f}")
 
-	print(f"Valor total {valor_total}")
-	impressao_linhas.append(str(valor_total))
+	print(f"Valor total : {(valor_total/100):.2f}")
+	impressao_linha_valor_total = f"Valor total : {valor_total/100:.2f}"
+	impressao_linhas.append(impressao_linha_valor_total)
 	input("\nDigite algo para continuar com impressao ..")
 	
 	for linha in impressao_linhas:
