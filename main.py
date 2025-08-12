@@ -192,7 +192,6 @@ def insert_order():
 		nome_comida = cur.fetchone()
 		codigo_comida = row[2]
 		preco_comida = row[4]
-		#impressao_linha_comida = str(codigo_comida) + "- " + str(nome_comida[0]) + " " + str((preco_comida/100):.2f)
 		impressao_linha_comida = f"{codigo_comida} - {nome_comida[0]} {preco_comida/100:.2f}"
 		impressao_linhas.append(impressao_linha_comida)
 		valor_total += int(preco_comida)
@@ -208,8 +207,8 @@ def insert_order():
 	for linha in impressao_linhas:
 		print(linha)
 	time.sleep(3)
+
 	# Impressão em imprimessora térmica SWEDA
-	
 	printer_name = "Microsoft Print to PDF" # Nome da impressora 
 	hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
 	printer_info = win32print.GetPrinter(hprinter, 2)
