@@ -240,16 +240,20 @@ def orders_today():
 	cur.execute(sql, (data_hoje,))
 	rows = cur.fetchall()
 	cur.close()
+	con.close()
 	venda_do_dia = 0
+	
 	for row in rows:
 		rowid = row[0]
 		table_number = row[1]
 		total_value = row[2]
 		venda_do_dia += total_value
-		print(f"Pedido : {rowid}  Mesa : {table_number}  .  Valor total : {total_value}")
-		print(f"Valor total : {venda_do_dia}")
-	con.close()
-
+		print(f"Pedido : {rowid}  Mesa : {table_number}  .  Valor total : {(total_value/100):.2f}")
+	print("\n\n")
+	print(f"Valor total : {(venda_do_dia/100):.2f}")
+	print("\n\n")
+	input("Digite algo para continuar ...")
+	show_main_menu()
 # NOTE: Menu : Produtos 
 def show_product_menu():
 	# TODO: 
