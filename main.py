@@ -302,12 +302,29 @@ def show_reports_menu():
 			break
 
 	if selected_option == "1":
-		pass
+		report_vendas_todos_produtos()
 	elif selected_option == "2":
 		pass
 	else:
 		show_main_menu()
 
+# NOTE: Relatorio > Vendas todos os produtos 
+def report_vendas_todos_produtos():
+	os.system("cls")
+	print("Relatorio de todos os produtos por periodo ")
+	print("****************************************** ")
+	data_inicio = input("Digite a data de inicio (aaaa-mm-dd) : ")
+	data_fim = input("Digite a data de fim (aaaa-mm-dd)")
+
+	# Verificar dentro da tabela 'order' a data 
+	sql = "SELECT ROWID, order_date, total_value FROM orders WHERE order_date >= ?  AND order_date <= ? "
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	cur.execute(sql, (data_inicio, data_fim))
+	rows = cur.fetchall()
+	con.close()
+	for row in rows:
+		print(row)
 	#aqui
 
 # NOTE: Produtos > Cadastro 
