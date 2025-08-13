@@ -286,7 +286,7 @@ def show_product_menu():
 		produto_alterarPreco()
 	else:
 		show_main_menu()
-		
+
 # NOTE: Menu : Relatorios
 def show_reports_menu():
 	os.system("cls")
@@ -294,11 +294,20 @@ def show_reports_menu():
 	print("===============")
 	print("1. Vendas por periodo (todos produtos)")
 	print("2. Vendas por periodo (um produto)")
+	print("3. Voltar Menu principal")
 
 	while True:
 		selected_option = input("Digite o item desejado : ")
-		if selected_option == "1" or selected_option == "2":
+		if selected_option == "1" or selected_option == "2" or selected_option == "3":
 			break
+
+	if selected_option == "1":
+		pass
+	elif selected_option == "2":
+		pass
+	else:
+		show_main_menu()
+
 	#aqui
 
 # NOTE: Produtos > Cadastro 
