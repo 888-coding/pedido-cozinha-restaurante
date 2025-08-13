@@ -92,17 +92,20 @@ def show_order_menu():
 	print("===========")
 	print("\n1. Novo Pedido")
 	print("2. Consultar pedidos de hoje")
+	print("3. Voltar para menu iniciar")
 
 	while True:
 		selected_option = input("\nEscolha a opcao : ")
-		if selected_option == "1" or selected_option == "2":
+		if selected_option == "1" or selected_option == "2" or selected_option == "3":
 			break 
 
 	if selected_option == "1":
 		insert_order()
 	elif selected_option == "2":
 		orders_today()
-	
+	else :
+		show_main_menu()
+		
 def insert_order():
 	os.system("cls")
 	print("===========") 
