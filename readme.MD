@@ -56,6 +56,8 @@
 
 # Problemas 
 
+- Viagens: Precisa montar algo.
+
 ## Librarys 
 
 - Para windows 
