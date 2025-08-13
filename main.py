@@ -105,7 +105,7 @@ def show_order_menu():
 		orders_today()
 	else :
 		show_main_menu()
-		
+
 def insert_order():
 	os.system("cls")
 	print("===========") 
@@ -270,10 +270,11 @@ def show_product_menu():
 	print("2. Consultar")
 	print("3. Alterar nome do produto")
 	print("4. Alterar preco do produto")
+	print("5. Voltar Menu principal")
 	print("")
 	while True: 
 		selected_option = input("Digite a opcao : ")
-		if selected_option == "1" or selected_option == "2" or selected_option == "3" or selected_option == "4":
+		if selected_option == "1" or selected_option == "2" or selected_option == "3" or selected_option == "4" or selected_option == "5":
 			break 
 	if selected_option == "1":
 		produto_cadastro()
@@ -281,8 +282,11 @@ def show_product_menu():
 		produtos_consultarTodo()
 	elif selected_option == "3":
 		produto_alterarNome()
-	else:
+	elif selected_option == "4":
 		produto_alterarPreco()
+	else:
+		show_main_menu()
+		
 # NOTE: Menu : Relatorios
 def show_reports_menu():
 	os.system("cls")
