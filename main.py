@@ -313,18 +313,37 @@ def report_vendas_todos_produtos():
 	os.system("cls")
 	print("Relatorio de todos os produtos por periodo ")
 	print("****************************************** ")
-	data_inicio = input("Digite a data de inicio (aaaa-mm-dd) : ")
+	data_inicio = input("Digite a data de inicio (aaaa-mm-dd) : ") 
 	data_fim = input("Digite a data de fim (aaaa-mm-dd)")
-
+	data_inicio += " 00:00:01"
+	data_fim += " 23:59:59"
 	# Verificar dentro da tabela 'order' a data 
 	sql = "SELECT ROWID, order_date, total_value FROM orders WHERE order_date >= ?  AND order_date <= ? "
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
-	cur.execute(sql, (data_inicio, data_fim))
+	#cur.execute(sql, (data_inicio, data_fim))
+	cur.execute(sql, (data_inicio, data_fim, ))
 	rows = cur.fetchall()
 	con.close()
+	
+	# Mostrar as linhas de pedido
+	valor_total_periodo = 0
 	for row in rows:
-		print(row)
+		for i in range(3):
+			if i == 0:
+				linha = f"No Pedido : {row[i]} - "
+			elif i == 1:
+				linha += f"Data : {row[i]}"
+			else:
+				linha += f" Valor : {float(row[i]/100):.2f}"
+				print(linha)
+				valor_total_periodo += row[i]
+
+	print(f"\n\nValor total do periodo : {float(valor_total_periodo/100):.2f}")
+	print("\n\n")
+	input("Digite algo para continuar ... ")
+	show_main_menu()
+		
 	#aqui
 
 # NOTE: Produtos > Cadastro 
