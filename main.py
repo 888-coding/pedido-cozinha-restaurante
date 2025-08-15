@@ -371,15 +371,15 @@ def produto_cadastro():
 	show_main_menu()
 
 def produtos_consultarTodo():
-	sql= "SELECT id, name, price FROM products ORDER BY id ASC"
+	sql= "SELECT id, name_chinese, name_portuguese, price FROM products ORDER BY id ASC"
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
 	cur.execute(sql)
 	rows = cur.fetchall()
 	os.system("cls")
 	for row in rows:
-		preco = row[2] / 100
-		print(f"{row[0]} - {row[1]} : {preco:.2f}")
+		preco = row[3] / 100
+		print(f"{row[0]} - {row[1]} - {row[2]} : {preco:.2f}")
 
 	con.close()
 	input("\nDigite para continuar ... ")
