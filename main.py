@@ -435,14 +435,14 @@ def produto_alterarPreco():
 
 	for row in rows:
 		i = 0 
-		for i in range(3):
+		for i in range(4):
 			if i == 0 :
 				id_product = int(row[0])
 				print(f"Numero de comida : {row[i]}")
 			elif i == 1 :
-				print(f"Nome da comida : {row[1]}")
+				print(f"Nome da comida : {row[1]} {row[2]}")
 			else : 
-				print(f"Preco da comida : {row[2]}")
+				print(f"Preco da comida : {row[3]}")
 		
 	print("/n/nQual valor novo vc deseja ?")
 	novo_valor = int(float(input("Digite novo valor : R$ ")) * 100)
