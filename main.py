@@ -402,17 +402,19 @@ def produto_alterarNome():
 				id_product = int(row[0])
 				print(f"Numero da comida : {row[0]}")
 			elif i == 1:
-				print(f"Nome da comida : {row[1]}")
+				print(f"Nome da comida (chines): {row[1]}")
+			elif i == 2:
+				print(f"Nome da comida (portugues): {row[2]}")
 			else:
 				print(f"Preco da comida : {row[2]}")
 	print("Novo nome da comida ")
-	novo_nome_comida = input("Digite o nome novo da comida : ").upper()
-
+	novo_nome_comida_chinese = input("Digite o nome novo da comida (chines) : ").upper()
+	novo_nome_comida_portugues = input("Digite o nome novo da comida (portugues) : ").upper()
 	# Conexao banco de dados para alterar nome 
-	sql = "UPDATE products SET name = ? WHERE ID = ? "
+	sql = "UPDATE products SET name_chinese = ?, name_portuguese = ? WHERE ID = ? "
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
-	cur.execute(sql, (novo_nome_comida, id_product,))
+	cur.execute(sql, (novo_nome_comida_chinese, novo_nome_comida_portugues, id_product,))
 	con.commit()
 	con.close()
 
