@@ -16,7 +16,8 @@ def create_table_products():
 	sql = """
 		CREATE TABLE IF NOT EXISTS products(
 		id INTEGER PRIMARY KEY, 
-		name TEXT, 
+		name_chinese TEXT,
+		name_portuguese TEXT, 
 		price INTEGER
 		)
 	"""
@@ -352,16 +353,17 @@ def produto_cadastro():
 	print(" Cadastro de produto") 
 	print(" ====================")
 	numero_comida = int(input("Numero da comida : "))
-	nome_comida = input("Nome da comida : ").upper()
+	nome_comida_chinese = input("Nome da comida(chines) : ").upper()
+	nome_comida_portuguese = input("Nome da comida(portugues) : ").upper()
 	valor_comida = 	int(float(input("Valor da comida : R$ ")) * 100)
 
 	# Conexao com banco de dados
 	con = sqlite3.connect("database.db")
 	sql = """
-	INSERT INTO products(id, name, price) VALUES(?, ?, ?)
+	INSERT INTO products(id, name_chinese, name_portuguese, price) VALUES(?, ?, ?, ?)
 	"""
 	cur = con.cursor()
-	cur.execute(sql, (numero_comida, nome_comida, valor_comida))
+	cur.execute(sql, (numero_comida, nome_comida_chinese, nome_comida_portuguese, valor_comida))
 	con.commit()
 	con.close()
 	print("\n\n Cadastrado com sucesso !!!")
