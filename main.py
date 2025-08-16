@@ -207,9 +207,14 @@ def insert_order():
 		con.close()
 		print(f"     Numero da comida : {codigo_comida}  - {nome_comida[0]} - Valor da comida :  {(preco_comida/100):.2f}")
 
-	print(f"Valor total : {(valor_total/100):.2f}")
-	impressao_linha_valor_total = f"Valor total : {valor_total/100:.2f}"
+	print(f"TOTAL : {(valor_total/100):.2f}")
+	impressao_linha_branca = " "
+	impressao_linhas.append(impressao_linha_branca)
+	impressao_linha_valor_total = f"TOTAL : {valor_total/100:.2f}"
 	impressao_linhas.append(impressao_linha_valor_total)
+	impressao_linhas.append(impressao_linha_branca)
+	impressao_linhas.append(impressao_linha_branca)
+	
 	input("\nDigite algo para continuar com impressao ..")
 	
 	for linha in impressao_linhas:
