@@ -224,7 +224,7 @@ def insert_order():
 	hDC.CreatePrinterDC(printer_name)
 	hDC.StartDoc("Teste Python")
 	hDC.StartPage()
-	font = win32ui.CreateFont({"name": "SimSum", "height": 30, "weight": 300}) # Fonte Chines
+	font = win32ui.CreateFont({"name": "SimSum", "height": 40, "weight": 700}) # Fonte Chines
 	hDC.SelectObject(font)
 	left = 20
 	top = 30
