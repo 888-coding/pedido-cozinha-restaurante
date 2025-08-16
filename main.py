@@ -149,7 +149,7 @@ def insert_order():
 				# Comida encontrada
 				con = sqlite3.connect("database.db")
 				cur = con.cursor()
-				valor_comida = int(rows[2])
+				valor_comida = int(rows[3])
 				valor_total += valor_comida
 				sql = "INSERT INTO order_items(order_id, product_id, product_qty, product_value) VALUES (?, ?, ?, ?)"
 				cur.execute(sql,(id_order, numero_comida_inserir, 1,valor_comida,))
@@ -191,12 +191,16 @@ def insert_order():
 		# Mostrar todos os itens do pedido 
 		con = sqlite3.connect("database.db")
 		cur = con.cursor()
-		sql = "SELECT name FROM products WHERE id = ? "
+		sql = "SELECT name_chinese, name_portuguese FROM products WHERE id = ? "
 		cur.execute(sql, (row[2],))
 		nome_comida = cur.fetchone()
+		nome_comida_chinese = nome_comida[0]
+		nome_comida_portuguese = nome_comida[1]
 		codigo_comida = row[2]
 		preco_comida = row[4]
-		impressao_linha_comida = f"{codigo_comida} - {nome_comida[0]} {preco_comida/100:.2f}"
+		impressao_linha_comida = f"{codigo_comida} - {nome_comida_chinese} {preco_comida/100:.2f}"
+		impressao_linhas.append(impressao_linha_comida)
+		impressao_linha_comida = f"{nome_comida_portuguese}"
 		impressao_linhas.append(impressao_linha_comida)
 		valor_total += int(preco_comida)
 		cur.close()
