@@ -327,7 +327,6 @@ def report_vendas_todos_produtos():
 	sql = "SELECT ROWID, order_date, total_value FROM orders WHERE order_date >= ?  AND order_date <= ? "
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
-	#cur.execute(sql, (data_inicio, data_fim))
 	cur.execute(sql, (data_inicio, data_fim, ))
 	rows = cur.fetchall()
 	con.close()
@@ -372,7 +371,7 @@ def produto_cadastro():
 	con.commit()
 	con.close()
 	print("\n\n Cadastrado com sucesso !!!")
-	time.sleep(2)
+	input("Digite enter para continuar ... ")
 	show_main_menu()
 
 def produtos_consultarTodo():
