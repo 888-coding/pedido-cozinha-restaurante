@@ -113,12 +113,10 @@ def insert_order():
 	print("> Pedido")
 	print("===========")
 	numero_mesa = input("Digite o numero da mesa : ") 
-	# data_pedido = date.today()
 	data_hora_pedido = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
 	print(f"Data e hora : {data_hora_pedido}")
 	print(data_hora_pedido)
 
-	# Conexao com banco de dados 
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
 	sql = "INSERT INTO orders(table_number, order_date) VALUES (?, ?)"
@@ -129,8 +127,7 @@ def insert_order():
 
 	con.close()
 
-	# Looping de adicionar itens
-	# Quando digitar 0 , não adiciona mais itens
+	# Looping de adicionar itens , Quando digitar 0 , não adiciona mais itens
 	valor_total = 0 
 	while True:
 		print("\n Adicione item : ")
@@ -158,18 +155,17 @@ def insert_order():
 			else:
 				# Nao existe comida
 				print("\nErro , numero da comida nao encontrada.") 
-	# Fim do Looping adicionando itens. 
+	# Fim do Looping  
 	
 	# Atualizar valor total na tabela de orders
 	sql = "UPDATE orders SET total_value = ? WHERE ROWID = ? "
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
 	cur.execute(sql, (valor_total, id_order,) )
-	cur.close()
 	con.commit()
 	con.close()
 
-	# Mostrar Dados do pedido.
+	# Mostrar Dados do pedido, adicionando linhas de impressao no variavel
 	os.system("cls")
 	print("\n\n   DADOS DO PEDIDO : ")
 	print(f"NUMERO DO PEDIDO : {id_order}")
@@ -393,6 +389,7 @@ def produtos_consultarTodo():
 	con.close()
 	input("\nDigite para continuar ... ")
 	show_main_menu()
+
 def produto_alterarNome():
 	os.system("cls")
 	print("Alteracao de nome da comida : ")
@@ -467,6 +464,7 @@ def produto_alterarPreco():
 
 	input("\nDigite algo para voltar ao menu principal ...")
 	show_main_menu()
+	
 # NOTE: Procedimentos
 create_database()
 create_table_products()
