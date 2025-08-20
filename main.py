@@ -15,7 +15,7 @@ def create_table_products():
 	con = sqlite3.connect("database.db")
 	sql = """
 		CREATE TABLE IF NOT EXISTS products(
-		id INTEGER PRIMARY KEY, 
+		id TEXT, 
 		name_chinese TEXT,
 		name_portuguese TEXT, 
 		price INTEGER
@@ -316,14 +316,18 @@ def show_reports_menu():
 
 # NOTE: Relatorio > Vendas todos os produtos 
 def report_vendas_todos_produtos():
+
+	# Relatorio Todos os produtos, Precisa mostra tudo que vendeu de produtos. exemplo: yakissoba : 10 un.
 	os.system("cls")
 	print("Relatorio de todos os produtos por periodo ")
 	print("****************************************** ")
+
 	data_inicio = input("Digite a data de inicio (aaaa-mm-dd) : ") 
-	data_fim = input("Digite a data de fim (aaaa-mm-dd)")
 	data_inicio += " 00:00:01"
+
+	data_fim = input("Digite a data de fim (aaaa-mm-dd)")
 	data_fim += " 23:59:59"
-	# Verificar dentro da tabela 'order' a data 
+
 	sql = "SELECT ROWID, order_date, total_value FROM orders WHERE order_date >= ?  AND order_date <= ? "
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
@@ -331,7 +335,7 @@ def report_vendas_todos_produtos():
 	rows = cur.fetchall()
 	con.close()
 	
-	# Mostrar as linhas de pedido
+	# Mostrar as linhas dos pedidos
 	valor_total_periodo = 0
 	for row in rows:
 		for i in range(3):
@@ -356,12 +360,11 @@ def produto_cadastro():
 	print("\n ====================")
 	print(" Cadastro de produto") 
 	print(" ====================")
-	numero_comida = int(input("Numero da comida : "))
+	numero_comida = input("Numero da comida : ").upper()
 	nome_comida_chinese = input("Nome da comida(chines) : ").upper()
 	nome_comida_portuguese = input("Nome da comida(portugues) : ").upper()
 	valor_comida = 	int(float(input("Valor da comida : R$ ")) * 100)
 
-	# Conexao com banco de dados
 	con = sqlite3.connect("database.db")
 	sql = """
 	INSERT INTO products(id, name_chinese, name_portuguese, price) VALUES(?, ?, ?, ?)
