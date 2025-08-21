@@ -48,7 +48,7 @@ def create_table_order_items():
 		CREATE TABLE IF NOT EXISTS order_items(
 			id INTERGER PRIMARY KEY,
 			order_id INTERGER, 
-			product_id INTERGER,
+			product_id TEXT,
 			product_qty INTERGER, 
 			product_value INTERGER
 		)
@@ -186,6 +186,7 @@ def insert_order():
 	rows = cur.fetchall()
 	con.close()
 	valor_total = 0
+	
 	for row in rows:
 		# Mostrar todos os itens do pedido 
 		con = sqlite3.connect("database.db")
@@ -205,7 +206,7 @@ def insert_order():
 		cur.close()
 		con.close()
 		print(f"     Numero da comida : {codigo_comida}  - {nome_comida[0]} - Valor da comida :  {(preco_comida/100):.2f}")
-
+	
 	print(f"TOTAL : {(valor_total/100):.2f}")
 	impressao_linha_branca = " "
 	impressao_linhas.append(impressao_linha_branca)
