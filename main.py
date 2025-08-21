@@ -5,6 +5,7 @@ import os
 import time 
 import win32print
 import win32ui
+
 # NOTE: BANCO- Criação do banco de dados 
 def create_database():
 	con = sqlite3.connect("database.db")
@@ -80,6 +81,7 @@ def show_main_menu():
 		show_reports_menu()
 	else:
 		exit()
+
 # NOTE: Menu : Pedidos 
 def show_order_menu():
 	# TODO:  
@@ -107,6 +109,7 @@ def show_order_menu():
 	else :
 		show_main_menu()
 
+# NOTE: Inserir Pedido
 def insert_order():
 	os.system("cls")
 	print("===========") 
@@ -239,6 +242,7 @@ def insert_order():
 	
 	show_main_menu()
 
+#NOTE: Pedido do dia 
 def orders_today():
 	# TODO: Mostrar as vendas do dia 
 	os.system("cls")
@@ -264,6 +268,7 @@ def orders_today():
 	print("\n\n")
 	input("Digite algo para continuar ...")
 	show_main_menu()
+
 # NOTE: Menu : Produtos 
 def show_product_menu():
 	# TODO: 
@@ -377,6 +382,7 @@ def produto_cadastro():
 	input("Digite enter para continuar ... ")
 	show_main_menu()
 
+# NOTE: Mostra todos os produtos
 def produtos_consultarTodo():
 	sql= "SELECT id, name_chinese, name_portuguese, price FROM products ORDER BY id ASC"
 	con = sqlite3.connect("database.db")
@@ -392,6 +398,7 @@ def produtos_consultarTodo():
 	input("\nDigite para continuar ... ")
 	show_main_menu()
 
+# NOTE: Alterar nome do produto 
 def produto_alterarNome():
 	os.system("cls")
 	print("Alteracao de nome da comida : ")
@@ -430,6 +437,7 @@ def produto_alterarNome():
 	input("\nDigite algo para continuar ...")
 	show_main_menu()
 
+# NOTE: Alterar preco do produto
 def produto_alterarPreco():
 	os.system("cls")
 	print("Alteracao de preco : ")
