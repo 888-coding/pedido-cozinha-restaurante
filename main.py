@@ -360,7 +360,7 @@ def produto_cadastro():
 	print("\n ====================")
 	print(" Cadastro de produto") 
 	print(" ====================")
-	numero_comida = input("Numero da comida : ").upper()
+	codigo_comida = input("Codigo da comida : ").upper()
 	nome_comida_chinese = input("Nome da comida(chines) : ").upper()
 	nome_comida_portuguese = input("Nome da comida(portugues) : ").upper()
 	valor_comida = 	int(float(input("Valor da comida : R$ ")) * 100)
@@ -370,7 +370,7 @@ def produto_cadastro():
 	INSERT INTO products(id, name_chinese, name_portuguese, price) VALUES(?, ?, ?, ?)
 	"""
 	cur = con.cursor()
-	cur.execute(sql, (numero_comida, nome_comida_chinese, nome_comida_portuguese, valor_comida))
+	cur.execute(sql, (codigo_comida, nome_comida_chinese, nome_comida_portuguese, valor_comida))
 	con.commit()
 	con.close()
 	print("\n\n Cadastrado com sucesso !!!")
@@ -395,7 +395,7 @@ def produtos_consultarTodo():
 def produto_alterarNome():
 	os.system("cls")
 	print("Alteracao de nome da comida : ")
-	codigo_comida = input("\nDigite o numero da comida : ")
+	codigo_comida = input("\nDigite o numero da comida : ").upper()
 	sql = "SELECT * FROM products WHERE id = ?"
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
@@ -407,8 +407,8 @@ def produto_alterarNome():
 		i = 0 
 		for i in range(3):
 			if i == 0:
-				id_product = int(row[0])
-				print(f"Numero da comida : {row[0]}")
+				id_product = row[0]
+				print(f"Codigo da comida : {row[0]}")
 			elif i == 1:
 				print(f"Nome da comida (chines): {row[1]}")
 			elif i == 2:
@@ -433,7 +433,7 @@ def produto_alterarNome():
 def produto_alterarPreco():
 	os.system("cls")
 	print("Alteracao de preco : ")
-	codigo_comida = int(input("\nDigite o numero da comida : "))
+	codigo_comida = input("\nDigite o numero da comida : ").upper()
 	sql = "SELECT * FROM products WHERE id = ?"
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
@@ -445,8 +445,8 @@ def produto_alterarPreco():
 		i = 0 
 		for i in range(4):
 			if i == 0 :
-				id_product = int(row[0])
-				print(f"Numero de comida : {row[i]}")
+				id_product = row[0]
+				print(f"Codigo da comida : {row[i]}")
 			elif i == 1 :
 				print(f"Nome da comida : {row[1]} {row[2]}")
 			else : 
@@ -455,7 +455,6 @@ def produto_alterarPreco():
 	print("/n/nQual valor novo vc deseja ?")
 	novo_valor = int(float(input("Digite novo valor : R$ ")) * 100)
 
-	# Conexao banco de dados para atualizar 
 	sql = "UPDATE products SET price = ? WHERE ID = ? "
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
