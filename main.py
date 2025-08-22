@@ -334,7 +334,7 @@ def report_vendas_todos_produtos():
 	data_fim = input("Digite a data de fim (aaaa-mm-dd)")
 	data_fim += " 23:59:59"
 
-	sql = "SELECT ROWID, order_date, total_value FROM orders WHERE order_date >= ?  AND order_date <= ? "
+	sql = "SELECT ROWID, order_date, total_value FROM orders WHERE date(order_date) >= ?  AND date(order_date) <= ? "
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
 	cur.execute(sql, (data_inicio, data_fim, ))
