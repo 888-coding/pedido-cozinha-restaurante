@@ -337,10 +337,10 @@ def report_vendas_todos_produtos():
 
 	# sql = "SELECT ROWID, order_date, total_value FROM orders WHERE date(order_date) >= ?  AND date(order_date) <= ? "
 	sql = """
-		SELECT ROWID, order_date, total_value 
+		SELECT orders.id, orders.order_date, orders.total_value 
 		FROM orders
 		INNER JOIN order_items
-		ON orders.ROWID = order_items.order_id 
+		ON orders.id = order_items.order_id 
 		WHERE date(order_date) >= ? 
 			AND date(order_date) <= ?
 	"""
