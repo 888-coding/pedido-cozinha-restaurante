@@ -47,7 +47,7 @@ def create_table_order_items():
 	con = sqlite3.connect("database.db")
 	sql = """
 		CREATE TABLE IF NOT EXISTS order_items(
-			id INTERGER PRIMARY KEY,
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
 			order_id INTERGER, 
 			product_id TEXT,
 			product_qty INTERGER, 
