@@ -337,12 +337,13 @@ def report_vendas_todos_produtos():
 
 	# sql = "SELECT ROWID, order_date, total_value FROM orders WHERE date(order_date) >= ?  AND date(order_date) <= ? "
 	sql = """
-		SELECT orders.id, orders.order_date, orders.total_value 
-		FROM orders
-		INNER JOIN order_items
-		ON orders.id = order_items.order_id 
-		WHERE date(order_date) >= ? 
-			AND date(order_date) <= ?
+		SELECT p.id, p.order_date, p.total_value, i.product_id, i.product_qty, i.product_value
+		FROM orders AS p
+		INNER JOIN order_items AS i
+		ON p.id = i.order_id 
+		WHERE date(p.order_date) >= ? 
+			AND date(p.order_date) <= ?
+		ORDER BY i.product_id ASC
 	"""
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
@@ -353,22 +354,22 @@ def report_vendas_todos_produtos():
 	# Mostrar as linhas dos pedidos
 	valor_total_periodo = 0
 	for row in rows:
-		for i in range(3):
-			if i == 0:
-				linha = f"No Pedido : {row[i]} - "
-			elif i == 1:
-				linha += f"Data : {row[i]}"
-			else:
-				linha += f" Valor : {float(row[i]/100):.2f}"
-				print(linha)
-				valor_total_periodo += row[i]
+		pedido_numero = row[0]
+		pedido_date = row[1]
+		pedido_valor_total = row[2]
+		produto_codigo = row[3]
+		produto_qty = row[4]
+		produto_valor_unitario = row[5]
+		
+		print()
+		#aqui
+	
 
 	print(f"\n\nValor total do periodo : {float(valor_total_periodo/100):.2f}")
 	print("\n\n")
 	input("Digite algo para continuar ... ")
 	show_main_menu()
 		
-	#aqui
 
 # NOTE: Produtos > Cadastro 
 def produto_cadastro():
