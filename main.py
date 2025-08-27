@@ -350,6 +350,8 @@ def report_vendas_todos_produtos():
 	
 	# Mostrar as linhas dos pedidos
 	valor_total_periodo = 0
+	quantidade_produto = 0 
+	codigo_anterior = "0" 
 	for row in rows:
 		pedido_numero = row[0]
 		pedido_date = row[1]
@@ -358,7 +360,16 @@ def report_vendas_todos_produtos():
 		produto_qty = row[4]
 		produto_valor_unitario = row[5]
 		valor_total_periodo += produto_valor_unitario
+
+		if codigo_anterior == produto_codigo or codigo_anterior == "0":
+			quantidade_produto += 1 
+		else:
+			print(f"Quantidade do produto : {quantidade_produto}") 
+			quantidade_produto = 0
+			codigo_anterior = produto_codigo
+
 		print(f"Codigo do produto : {produto_codigo}, vendido em {pedido_date}, pedido: {pedido_numero}")
+		codigo_anterior = produto_codigo
 		#aqui
 
 	print(f"\n\nValor total do periodo : {float(valor_total_periodo/100):.2f}")
