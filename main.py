@@ -330,12 +330,9 @@ def report_vendas_todos_produtos():
 	print("****************************************** ")
 
 	data_inicio = input("Digite a data de inicio (aaaa-mm-dd) : ") 
-	# data_inicio += " 00:00:01"
 
 	data_fim = input("Digite a data de fim (aaaa-mm-dd)")
-	# data_fim += " 23:59:59"
 
-	# sql = "SELECT ROWID, order_date, total_value FROM orders WHERE date(order_date) >= ?  AND date(order_date) <= ? "
 	sql = """
 		SELECT p.id, p.order_date, p.total_value, i.product_id, i.product_qty, i.product_value
 		FROM orders AS p
@@ -360,10 +357,9 @@ def report_vendas_todos_produtos():
 		produto_codigo = row[3]
 		produto_qty = row[4]
 		produto_valor_unitario = row[5]
-		
-		print()
+		valor_total_periodo += produto_valor_unitario
+		print(f"Codigo do produto : {produto_codigo}, vendido em {pedido_date}, pedido: {pedido_numero}")
 		#aqui
-	
 
 	print(f"\n\nValor total do periodo : {float(valor_total_periodo/100):.2f}")
 	print("\n\n")
