@@ -361,16 +361,18 @@ def report_vendas_todos_produtos():
 		produto_valor_unitario = row[5]
 		valor_total_periodo += produto_valor_unitario
 
+		print(f"Codigo do produto : {produto_codigo}, vendido em {pedido_date}, pedido: {pedido_numero}")
+		
 		if codigo_anterior == produto_codigo or codigo_anterior == "0":
 			quantidade_produto += 1 
 		else:
-			print(f"Quantidade do produto : {quantidade_produto}") 
+			print(f"\nQuantidade do produto : {quantidade_produto}\n") 
 			quantidade_produto = 0
-			codigo_anterior = produto_codigo
-
-		print(f"Codigo do produto : {produto_codigo}, vendido em {pedido_date}, pedido: {pedido_numero}")
+		
 		codigo_anterior = produto_codigo
-		#aqui
+
+	# Mostrar o ultimo produto
+	print(f"\nQuantidade do produto : {quantidade_produto}\n")
 
 	print(f"\n\nValor total do periodo : {float(valor_total_periodo/100):.2f}")
 	print("\n\n")
