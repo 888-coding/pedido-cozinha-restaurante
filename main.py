@@ -317,7 +317,7 @@ def show_reports_menu():
 	if selected_option == "1":
 		report_vendas_todos_produtos()
 	elif selected_option == "2":
-		pass
+		report_vendas_determinado_produto()
 	else:
 		show_main_menu()
 
@@ -379,6 +379,33 @@ def report_vendas_todos_produtos():
 	input("Digite algo para continuar ... ")
 	show_main_menu()
 		
+# NOTE: Relatorio > Vendas de determinado produto
+def report_vendas_determinado_produto():
+	os.system("cls")
+	print("> Relatorio de vendas determinado produto")
+	print("=========================================")
+	codigo_produto = input("Digite o codido que deseja consultar : ")
+
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	sql = "SELECT id, name_chinese, name_portuguese  FROM products WHERE id = ? "
+	cur.execute(sql, (codigo_produto,))
+	row = cur.fetchone()
+	con.close()
+	time.sleep(1)
+	if row == None:
+		print("Não encontrado ... ")
+		time.sleep(2)
+		show_main_menu()
+	nome_chines = row[1]
+	nome_portugues = row[2]
+	print(f"Nome do produto : {nome_chines} - {nome_portugues} ")
+	print(">>>")
+	data_inicial = input("Digite a data inicial  (aaaa-mm-dd) :")
+	data_final = input("Digite a data final    (aaaa-mm-dd) :")
+	
+	#aqui	
+	
 
 # NOTE: Produtos > Cadastro 
 def produto_cadastro():
