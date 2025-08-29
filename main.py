@@ -416,13 +416,14 @@ def report_vendas_determinado_produto():
 			AND date(pedidos.order_date) >= ? 
 			AND date(pedidos.order_date) <= ? 
 			AND items.product_id = ?
+		ORDER BY pedidos.order_date ASC 
 	"""
 	cur.execute(sql, (data_inicial, data_final, codigo_produto, ))
 
 	rows = cur.fetchall()
 
 	for row in rows:
-		print(row)
+		print(f"Data : {row[1]} - Quantidade : {row[3]} - Valor Vendido: {float(row[4]/100):.2f}")
 	#aqui	
 	
 
