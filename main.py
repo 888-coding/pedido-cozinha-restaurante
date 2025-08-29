@@ -391,6 +391,7 @@ def report_vendas_determinado_produto():
 	sql = "SELECT id, name_chinese, name_portuguese  FROM products WHERE id = ? "
 	cur.execute(sql, (codigo_produto,))
 	row = cur.fetchone()
+	cur.close()
 	con.close()
 	time.sleep(1)
 	if row == None:
@@ -404,6 +405,24 @@ def report_vendas_determinado_produto():
 	data_inicial = input("Digite a data inicial  (aaaa-mm-dd) :")
 	data_final = input("Digite a data final    (aaaa-mm-dd) :")
 	
+	# Procurar na tabela 'orders' o periodo do tempo , e com join com order_items puxando o codigo do produto .
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	sql = """
+		SELECT pedidos.id, pedidos.order_date, items.product_id, items.product_qty, product_value 
+		FROM orders AS pedidos
+		INNER JOIN order_items AS items
+		WHERE  pedidos.id = items.order_id
+			AND date(pedidos.order_date) >= ? 
+			AND date(pedidos.order_date) <= ? 
+			AND items.product_id = ?
+	"""
+	cur.execute(sql, (data_inicial, data_final, codigo_produto, ))
+
+	rows = cur.fetchall()
+
+	for row in rows:
+		print(row)
 	#aqui	
 	
 
