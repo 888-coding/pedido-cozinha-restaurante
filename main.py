@@ -421,9 +421,18 @@ def report_vendas_determinado_produto():
 	cur.execute(sql, (data_inicial, data_final, codigo_produto, ))
 
 	rows = cur.fetchall()
-
+	valor_total = 0 
+	qty_total = 0 
 	for row in rows:
 		print(f"Data : {row[1]} - Quantidade : {row[3]} - Valor Vendido: {float(row[4]/100):.2f}")
+		valor_total += row[4]
+		qty_total += row[3]
+	print("------------------------------")
+	print(f"Quantidade total : {qty_total}")	
+	print(f"Valor total : {float(valor_total/100):.2f}")
+	input("\n\nDigite enter para continuar ...")
+	show_main_menu()
+
 	#aqui	
 	
 
