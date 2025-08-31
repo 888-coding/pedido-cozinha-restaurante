@@ -63,3 +63,8 @@
 - Para windows 
 	- instalar pywin32 
 	
+## Problemas encontrados 
+
+- Cadastro de pedido 
+	- O valor total fica zerado as vezes. Provavelmente, é quando nao achou o codigo do produto. e portanto trava o sistema 
+	
