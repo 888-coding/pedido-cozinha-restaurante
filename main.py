@@ -253,19 +253,21 @@ def orders_today():
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
 	data_hoje = date.today()
-	sql = "SELECT ROWID, table_number, total_value FROM orders WHERE DATE(order_date) = ? "
-	cur.execute(sql, (data_hoje,))
+	print(data_hoje)
+	# sql = "SELECT id, table_number, total_value FROM orders WHERE DATE(order_date) = ? "
+	sql = "SELECT id, table_number, total_value FROM orders "
+	cur.execute(sql)
 	rows = cur.fetchall()
 	cur.close()
 	con.close()
 	venda_do_dia = 0
 	
 	for row in rows:
-		rowid = row[0]
+		id = row[0]
 		table_number = row[1]
-		total_value = row[2]
-		venda_do_dia += total_value
-		print(f"Pedido : {rowid}  Mesa : {table_number}  .  Valor total : {(total_value/100):.2f}")
+		total_value_pedido = row[2]
+		print(total_value_pedido)# venda_do_dia += total_value_pedido
+		print(f"Pedido : {id}  Mesa : {table_number}  .  Valor total : {(total_value_pedido/100):.2f}")
 	print("\n\n")
 	print(f"Valor total : {(venda_do_dia/100):.2f}")
 	print("\n\n")
