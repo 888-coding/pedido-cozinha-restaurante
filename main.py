@@ -142,12 +142,13 @@ def insert_order():
 		else:
 			con = sqlite3.connect("database.db")
 			cur = con.cursor()
-			sql = "SELECT * FROM products WHERE id = ?"
+			sql = "SELECT id, name_chinese, name_portuguese, price FROM products WHERE id = ?"
 			cur.execute(sql, (numero_comida_inserir,))
 			rows = cur.fetchone()
 			con.close()
 			if rows :
 				# Comida encontrada
+				print(f"{rows[1]} - {rows[2]}")
 				con = sqlite3.connect("database.db")
 				cur = con.cursor()
 				valor_comida = int(rows[3])
