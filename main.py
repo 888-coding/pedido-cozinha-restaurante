@@ -369,12 +369,29 @@ def report_vendas_todos_produtos():
 		if codigo_anterior == produto_codigo or codigo_anterior == "0":
 			quantidade_produto += 1 
 		else:
+			con = sqlite3.connect("database.db")
+			cur = con.cursor()
+			sql = "SELECT name_portuguese FROM products WHERE id = ? "
+			cur.execute(sql, (produto_codigo,))
+			row = cur.fetchone()
+			cur.close()
+			con.close()
+			print(f"Produto: {row[0]}")
 			print(f"\nQuantidade do produto : {quantidade_produto}\n") 
 			quantidade_produto = 0
 		
 		codigo_anterior = produto_codigo
 
 	# Mostrar o ultimo produto
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	sql = "SELECT name_portuguese FROM products WHERE id = ? "
+	cur.execute(sql, (produto_codigo,))
+	row = cur.fetchone()
+	cur.close()
+	con.close()
+	print(f"Produto: {row[0]}")
+
 	print(f"\nQuantidade do produto : {quantidade_produto}\n")
 
 	print(f"\n\nValor total do periodo : {float(valor_total_periodo/100):.2f}")
