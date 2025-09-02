@@ -66,5 +66,10 @@
 ## Problemas encontrados 
 
 - Cadastro de pedido 
-	- O valor total fica zerado as vezes. Provavelmente, é quando nao achou o codigo do produto. e portanto trava o sistema 
-	
+	- O valor total fica zerado as vezes. Provavelmente, é quando nao achou o codigo do produto. e portanto trava o sistema
+		- Atualmente está cadastrando o pedido, e depois alterar o valor total do pedido, na tabela orders, com novo valor. Provavelmente, quando não encontramos os codigos do produto, acaba de não atualizar o valor, portanto, fica null. Causando erros futuros em Relatorios, e Vendas do dia.  Portanto, precisa verificar o codigo de produto existente antes de continuar, e também, repensar sobre o cadastro de pedido, na tabela orders, para mais tarde. 
+
+
+- Relatório de vendas de todos os produtos 
+	- A organização está errado, está puxando um valor do próximo código de produto . 
+
