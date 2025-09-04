@@ -1,6 +1,8 @@
 import sqlite3
 import os 
 import time 
+from datetime import datetime
+from datetime import date
 
 # Fazendo o pedido desde zero 
 
@@ -64,3 +66,10 @@ print(f"novo numero de pedido é : {numero_pedido_novo}")
 
 # mesa
 print(f"Mesa : {mesa}")
+
+# data do pedido 
+data_pedido = datetime.today().strftime("%Y-%m-%d")
+hora_pedido = datetime.today().strftime("%H:%M:%S")
+print(f"data de hoje : {data_pedido} - {hora_pedido}")
+
+# Variaveis : mesa , numero_pedido_novo , data_pedido, hora_pedido
