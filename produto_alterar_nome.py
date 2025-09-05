@@ -1,5 +1,6 @@
 import os 
 import sqlite3
+import time 
 
 def alterar():
     
@@ -33,7 +34,21 @@ def alterar():
     code = row[1]
     name_chinese = row[2]
     name_portuguese = row[3]
-    print("produto encontrado ")
+    
+    print(f"Codigo : {code}")
+    time.sleep(0.4)    
+    print(f"Nome : {name_chinese} - {name_portuguese}")
+    time.sleep(0.4)
+    
+    while True:
+        deseja = input("Deseja alterar (s/n) ? ").upper()
+        if deseja == "S" or deseja == "N":
+            break
+    
+    time.sleep(0.4)
 
+    # Novo nome 
+    new_name_chinese = input("Novo nome em chinês : ").upper()
+    new_name_portuguese = input("Novo nome em português : ").upper()
 
 alterar()
