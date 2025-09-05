@@ -16,12 +16,11 @@ def produto_cadastro():
     print(" >  Cadastro de produto ")
     print("==========================")
 
-    code = input("\n > CODIGO DO PRODUTO : ")
+    code = input("\n> CODIGO DO PRODUTO : ").upper()
     name_chinese = input("> NOME CHINES : ")
-    name_portuguese = input("> NOME PORTUGUES : ")
+    name_portuguese = input("> NOME PORTUGUES : ").upper()
     input_price = input("> PREÇO : R$ ")
 
-    price = input_price * 100
+    price = int(input_price) * 100
     
-
 produto_cadastro()
