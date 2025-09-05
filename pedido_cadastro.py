@@ -72,4 +72,3 @@ data_pedido = datetime.today().strftime("%Y-%m-%d")
 hora_pedido = datetime.today().strftime("%H:%M:%S")
 print(f"data de hoje : {data_pedido} - {hora_pedido}")
 
-# Variaveis : mesa , numero_pedido_novo , data_pedido, hora_pedido
