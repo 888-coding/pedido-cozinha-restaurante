@@ -21,6 +21,18 @@ def produto_cadastro():
     name_portuguese = input("> NOME PORTUGUES : ").upper()
     input_price = input("> PREÇO : R$ ")
 
-    price = int(input_price) * 100
+    price = float(input_price) * 100
     
+    # Inserir dados , code, name_chinese, name_portuguese, price
+    con = sqlite3.connect("database.db")
+    cur = con.cursor()
+    sql = """
+        INSERT INTO products (code, name_chinese, name_portuguese, price)
+        VALUES (?, ?, ?, ?)
+    """
+    cur.execute(sql, (code, name_chinese, name_portuguese, price) )
+    con.commit()
+    con.close()
+
+    print("Cadastrado com sucesso ! ")
 produto_cadastro()
