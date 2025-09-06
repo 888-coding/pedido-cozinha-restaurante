@@ -60,15 +60,23 @@ sql = "SELECT id FROM orders ORDER BY id DESC LIMIT 1"
 cur.execute(sql, () )
 row = cur.fetchone()
 con.close()
-print(f"ultimo numero de pedido é: {row[0]}")
-numero_pedido_novo = int(row[0]) + 1 
-print(f"novo numero de pedido é : {numero_pedido_novo}")
+print("================================================")
+if not row:
+    numero_pedido_novo = 1
+    print("Não tinha cadastro de pedido")
+else:
+    print(f"Ultimo numero de pedido é: {row[0]}") 
+    numero_pedido_novo = int(row[0]) + 1 
 
+print("===============================================")
+print(f"novo numero de pedido é : {numero_pedido_novo}")
+print("===============================================")
 # mesa
 print(f"Mesa : {mesa}")
-
+print("===============================================")
 # data do pedido 
 data_pedido = datetime.today().strftime("%Y-%m-%d")
 hora_pedido = datetime.today().strftime("%H:%M:%S")
-print(f"data de hoje : {data_pedido} - {hora_pedido}")
-
+print(f"Data : {data_pedido}")
+print(f"Horas: {hora_pedido}")
+print("===============================================")
