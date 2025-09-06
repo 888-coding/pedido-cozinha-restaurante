@@ -25,6 +25,7 @@ print("\nPedido - Digite o codigo da comida: ")
 
 
 lista_comidas = [] 
+lista_precos = []
 while True:
     input_comida = input("> Numero da comida: ").upper()
 
@@ -37,7 +38,7 @@ while True:
     else:
         con = sqlite3.connect("database.db")
         cur = con.cursor()
-        sql = "SELECT id, name_chinese, name_portuguese FROM products WHERE id = ?"
+        sql = "SELECT id, name_chinese, name_portuguese, price FROM products WHERE id = ?"
         cur.execute(sql, (input_comida,))
         row = cur.fetchone()
         con.close()
@@ -47,12 +48,18 @@ while True:
         else:
             # Se encontrar o codigo, adiciona ele na lista de comidas de pedido
             lista_comidas.append(row[0])
+            lista_precos.append(row[3])
             print(f"> {row[1]} - {row[2]}")
 
 
 # imprimir lista de comida 
 print(f"Lista dos codigos dos produtos : {lista_comidas}") 
+print(f"Precos unitarios :{lista_precos}")
 
+total_value = 0 
+for item in lista_precos:
+    total_value += int(item)
+print(f"Valor total : {total_value}")
 # achar o numero de pedido para adicionar. 
 con = sqlite3.connect("database.db")
 cur = con.cursor()
@@ -80,3 +87,12 @@ hora_pedido = datetime.today().strftime("%H:%M:%S")
 print(f"Data : {data_pedido}")
 print(f"Horas: {hora_pedido}")
 print("===============================================")
+
+# Cadastrar no banco de dados 
+# Tabela orders 
+# table_number(mesa), data_pedido(data_pedido), hora_pedido(hora_pedido), total_value(total_value)
+# Tabela order_items
+# order_id(numero_pedido_novo), product_id, product_qty, product_price
+# 
+# 
+
