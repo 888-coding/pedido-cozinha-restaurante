@@ -49,6 +49,18 @@ def alterar():
 
     # Novo nome 
     new_name_chinese = input("Novo nome em chinês : ").upper()
-    new_name_portuguese = input("Novo nome em português : ").upper()
+    new_name_portuguese = input("\nNovo nome em português : ").upper()
 
+    # Alterar no banco de dados os nomes
+    con = sqlite3.connect("database.db")    
+    cur = con.cursor()
+    sql = "UPDATE products SET name_chinese = ?, name_portuguese = ? WHERE id = ?"
+    cur.execute(sql, (new_name_chinese,new_name_portuguese, id, ))
+    con.commit()
+    con.close()
+
+    time.sleep(0.4)
+    print("Atualizado com sucesso ")
+
+    
 alterar()
