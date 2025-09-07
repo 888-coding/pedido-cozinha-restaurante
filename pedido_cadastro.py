@@ -39,7 +39,7 @@ def cadastrar():
         else:
             con = sqlite3.connect("database.db")
             cur = con.cursor()
-            sql = "SELECT id, name_chinese, name_portuguese, price FROM products WHERE id = ?"
+            sql = "SELECT id, name_chinese, name_portuguese, price FROM products WHERE code = ?"
             cur.execute(sql, (input_comida,))
             row = cur.fetchone()
             con.close()
