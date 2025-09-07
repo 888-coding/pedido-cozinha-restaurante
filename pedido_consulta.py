@@ -44,4 +44,8 @@ def consultar():
         else:
             for row in rows:
                print(f"Número do pedido : {row[0]}") 
+               time.sleep(0.4)
+               print(f"   {row[2]}")
+               time.sleep(0.4)
+               print(f"   {float(row[3])/100:.2f}\n")
 consultar()
