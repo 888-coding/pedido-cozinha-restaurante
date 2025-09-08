@@ -40,7 +40,7 @@ def consultar():
         con.close()
 
         if not rows:
-            print("Nao foi encontrado nada")
+            print("Nao foi encontrado nada!")
         else:
             for row in rows:
                print(f"Número do pedido : {row[0]}") 
