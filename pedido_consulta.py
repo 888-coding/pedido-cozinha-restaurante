@@ -55,9 +55,9 @@ def consultar():
 
         periodo_inicial = input("> Digite o periodo inicial : (aaaa-mm-dd)")
         periodo_final = input("> Digite o periodo inicial : (aaaa-mm-dd)")
-        print("===============================================================")
-        print(f"Periodo escolhido é : {periodo_inicial} até {periodo_final}")
-        print("===============================================================")
 
+        print("\n==============================================================")
+        print(f"Periodo escolhido é : > {periodo_inicial} até {periodo_final}")
+        print("==============================================================")
 
 consultar()
