@@ -19,7 +19,7 @@ def consultar():
     print("=====================================")
 
     print("\n1 . Listar pedidos de hoje ")
-    print("2. Outro periodo")
+    print("2 . Outro periodo")
 
     while True:
         opcao = input("Escolha a opção : ")
@@ -48,4 +48,16 @@ def consultar():
                print(f"   {row[2]}")
                time.sleep(0.4)
                print(f"   {float(row[3])/100:.2f}\n")
+    else:
+        print("=============================")
+        print(" > Outro periodo : ")
+        print("=============================")
+
+        periodo_inicial = input("> Digite o periodo inicial : (aaaa-mm-dd)")
+        periodo_final = input("> Digite o periodo inicial : (aaaa-mm-dd)")
+        print("===============================================================")
+        print(f"Periodo escolhido é : {periodo_inicial} até {periodo_final}")
+        print("===============================================================")
+
+
 consultar()
