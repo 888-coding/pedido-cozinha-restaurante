@@ -60,4 +60,19 @@ def consultar():
         print(f"Periodo escolhido é : > {periodo_inicial} até {periodo_final}")
         print("==============================================================")
 
+        con = sqlite3.connect("database.db")
+        cur = con.cursor()
+        sql = "SELECT id, order_date, total_value FROM orders WHERE order_date >= ? and order_date <= ? ORDER BY id ASC"
+        cur.execute(sql, (periodo_inicial, periodo_final,))
+        rows = cur.fetchall()
+        cur.close()
+        con.close()
+
+        venda_total_periodo = 0 
+        for row in rows:
+            print(row)
+            venda_total_periodo += int(row[2])
+        print("==========================================")
+        print(f"Valor total do periodo : {float(venda_total_periodo)/100:.2f}")
+        print("==========================================")
 consultar()
