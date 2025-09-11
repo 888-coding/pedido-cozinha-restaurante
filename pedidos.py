@@ -5,28 +5,33 @@ import datetime
 
 import principal
 
-def PedidosMenu():
-    
-    time.sleep(1)
-    os.system("cls")
-
-    print("===============================")
-    print(" > Pedidos")
-    print("===============================")
-    print("1. Cadastrar")
-    print("2. Consultar")
-
-    print("==============================")
-
+def pedidos_menu():
     while True:
-        opcao = input(" > Opção : ")
-        if opcao == "1" or opcao == "2":
-            break
 
-    if opcao == "1":
-        cadastrar()
-    else:
-        pedido_consulta()
+        time.sleep(1)
+        os.system("cls")
+
+        print("===============================")
+        print(" > Pedidos")
+        print("===============================")
+        print("1. Cadastrar")
+        print("2. Consultar")
+        print("0. Voltar")
+
+        print("==============================")
+
+        opcao = input(" > Opção : ")
+        if opcao == "1":
+            print("Cadastrar produto")
+        elif opcao == "2":
+            print("Consultar produto")
+        elif opcao == "0":
+            print("voltando")
+            time.sleep(1)
+            break
+        else:
+            print("Opção inválida")
+
     
 
 
