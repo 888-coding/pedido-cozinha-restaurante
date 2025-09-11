@@ -1,7 +1,7 @@
 import os 
 import time 
 import sqlite3
-import datetime
+from datetime import datetime
 
 
 def pedidos_menu():
@@ -22,8 +22,12 @@ def pedidos_menu():
         opcao = input(" > Opção : ")
         if opcao == "1":
             print("Cadastrar produto")
+            time.sleep(2)
+            cadastrar()
         elif opcao == "2":
             print("Consultar produto")
+            time.sleep(2)
+            consultar()
         elif opcao == "0":
             print("voltando")
             time.sleep(1)
