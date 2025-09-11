@@ -3,7 +3,6 @@ import time
 import sqlite3
 import datetime
 
-import principal
 
 def pedidos_menu():
     while True:
