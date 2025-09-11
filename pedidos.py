@@ -1,8 +1,34 @@
-import sqlite3
 import os 
 import time 
-from datetime import datetime
-from datetime import date
+import sqlite3
+import datetime
+
+import principal
+
+def PedidosMenu():
+    
+    time.sleep(1)
+    os.system("cls")
+
+    print("===============================")
+    print(" > Pedidos")
+    print("===============================")
+    print("1. Cadastrar")
+    print("2. Consultar")
+
+    print("==============================")
+
+    while True:
+        opcao = input(" > Opção : ")
+        if opcao == "1" or opcao == "2":
+            break
+
+    if opcao == "1":
+        cadastrar()
+    else:
+        pedido_consulta()
+    
+
 
 def cadastrar():
     os.system("cls")
@@ -122,4 +148,77 @@ def cadastrar():
 
     print("Cadastrado com sucesso e todos os produtos cadastrados no pedido.")
 
-cadastrar()
+def consultar():
+
+    # Mostrar um Menu de qual opcao deseja consultar
+    # 1- Listar pedido do dia 
+    # 2- Outro periodo 
+    # 
+    # 
+    #  
+
+    os.system("cls")
+
+    print("=====================================")
+    print(" > Consulta de pedidos")
+    print("=====================================")
+
+    print("\n1 . Listar pedidos de hoje ")
+    print("2 . Outro periodo")
+
+    while True:
+        opcao = input("Escolha a opção : ")
+        if opcao == "1" or opcao == "2":
+            break
+
+    time.sleep(0.5)
+    
+    if opcao == "1":
+        data_consulta = datetime.now().strftime("%Y-%m-%d")
+
+        con = sqlite3.connect("database.db")
+        cur = con.cursor()
+        sql = "SELECT id, order_date, order_time, total_value FROM orders WHERE order_date = ? "
+        cur.execute(sql, (data_consulta,))
+        rows = cur.fetchall()
+        cur.close()
+        con.close()
+
+        if not rows:
+            print("Nao foi encontrado nada!")
+        else:
+            for row in rows:
+               print(f"Número do pedido : {row[0]}") 
+               time.sleep(0.4)
+               print(f"   {row[2]}")
+               time.sleep(0.4)
+               print(f"   {float(row[3])/100:.2f}\n")
+    else:
+        print("=============================")
+        print(" > Outro periodo : ")
+        print("=============================")
+
+        periodo_inicial = input("> Digite o periodo inicial : (aaaa-mm-dd)")
+        periodo_final = input("> Digite o periodo inicial : (aaaa-mm-dd)")
+
+        print("\n==============================================================")
+        print(f"Periodo escolhido é : > {periodo_inicial} até {periodo_final}")
+        print("==============================================================")
+
+        con = sqlite3.connect("database.db")
+        cur = con.cursor()
+        sql = "SELECT id, order_date, total_value FROM orders WHERE order_date >= ? and order_date <= ? ORDER BY id ASC"
+        cur.execute(sql, (periodo_inicial, periodo_final,))
+        rows = cur.fetchall()
+        cur.close()
+        con.close()
+
+        venda_total_periodo = 0 
+        for row in rows:
+            print(row)
+            venda_total_periodo += int(row[2])
+        print("==========================================")
+        print(f"Valor total do periodo : {float(venda_total_periodo)/100:.2f}")
+        print("==========================================")
+
+
