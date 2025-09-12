@@ -6,14 +6,16 @@ import sqlite3
 def menu_produtos():
     while True:
         os.system("cls")
-        print("SISTEMA 7P > MENU DE PRODUTOS")
-        print("1. Cadastro")
-        print("2. Consulta")
+        print("==================================")
+        print(" > SISTEMA 7P > MENU DE PRODUTOS")
+        print("==================================")
+        print("1. Cadastrar")
+        print("2. Consultar")
         print("3. Alterar preco")
         print("4. Alterar nome")
         print("0. Voltar")
         
-        opcao = input("> Opcao: ")
+        opcao = input("\n\n> Opcao: ")
 
         if opcao == "1":
             produto_cadastrar()
@@ -26,7 +28,8 @@ def menu_produtos():
         elif opcao == "0":
             break
         else: 
-            print("Opcao invalida")
+            print("\n\nOpcao invalida")
+            time.sleep(0.8)
 
 def produto_cadastrar():
     
@@ -210,5 +213,3 @@ def alterar_nome():
 
     time.sleep(0.4)
     print("Atualizado com sucesso ")
-
-#aqui
