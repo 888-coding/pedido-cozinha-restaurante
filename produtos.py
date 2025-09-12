@@ -20,9 +20,9 @@ def menu_produtos():
         elif opcao == "2":
             pass
         elif opcao == "3":
-            pass
+            alterar_preco()
         if opcao == "4":
-            pass
+            alterar_nome()
         elif opcao == "0":
             break
         else: 
