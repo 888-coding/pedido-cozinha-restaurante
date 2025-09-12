@@ -16,7 +16,7 @@ def menu_produtos():
         opcao = input("> Opcao: ")
 
         if opcao == "1":
-            pass
+            produto_cadastrar()
         elif opcao == "2":
             pass
         elif opcao == "3":
@@ -28,7 +28,39 @@ def menu_produtos():
         else: 
             print("Opcao invalida")
 
+def produto_cadastrar():
+    
+    # Cadastrar produto 
+    # Tabela : id, code, name_chinese, name_portuguese, price
+    # 
+    # 
 
+    os.system("cls")
+    
+    print("==========================")
+    print(" >  Cadastro de produto ")
+    print("==========================")
+
+    code = input("\n> CODIGO DO PRODUTO : ").upper()
+    name_chinese = input("> NOME CHINES : ")
+    name_portuguese = input("> NOME PORTUGUES : ").upper()
+    input_price = input("> PREÇO : R$ ")
+
+    price = float(input_price) * 100
+    
+    # Inserir dados , code, name_chinese, name_portuguese, price
+    con = sqlite3.connect("database.db")
+    cur = con.cursor()
+    sql = """
+        INSERT INTO products (code, name_chinese, name_portuguese, price)
+        VALUES (?, ?, ?, ?)
+    """
+    cur.execute(sql, (code, name_chinese, name_portuguese, price) )
+    con.commit()
+    con.close()
+
+    print("Cadastrado com sucesso ! ")
+    time.sleep(1)
 
 def alterar_preco():
     
