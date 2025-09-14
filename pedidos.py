@@ -6,7 +6,7 @@ import win32print
 import win32ui 
 
 
-def pedidos_menu():
+def menu_pedidos():
     while True:
 
         time.sleep(1)

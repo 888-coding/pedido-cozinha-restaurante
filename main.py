@@ -1,5 +1,5 @@
 import os 
-from pedidos import pedidos_menu
+from pedidos import menu_pedidos
 from produtos import menu_produtos
 
 def menu_principal():
@@ -12,7 +12,7 @@ def menu_principal():
         print("0. Sair")
         opcao = input("\n\n > Opcao: ")
         if opcao == "1":
-            pedidos_menu()
+            menu_pedidos()
         elif opcao == "2":
             menu_produtos()
         elif opcao == "3":
