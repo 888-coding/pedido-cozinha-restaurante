@@ -171,6 +171,7 @@ def cadastrar():
 
     print("Cadastrado com sucesso e todos os produtos cadastrados no pedido.")
     print("\n\nContinuando com impressao ...")
+    time.sleep(0.5)
 
     # Impressão em imprimessora térmica SWEDA
     printer_name = "Microsoft Print to PDF" # Nome da impressora 
