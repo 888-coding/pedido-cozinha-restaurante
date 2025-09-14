@@ -59,7 +59,9 @@ def cadastrar():
     print("\nPedido - Digite o codigo da comida: ")
 
 
-    lista_comidas = [] 
+    lista_comidas = []
+    lista_nome_chines = []
+    lista_nome_portugues = [] 
     lista_precos = []
     while True:
         input_comida = input("> Numero da comida: ").upper()
@@ -83,6 +85,8 @@ def cadastrar():
             else:
                 # Se encontrar o codigo, adiciona ele na lista de comidas de pedido
                 lista_comidas.append(row[0])
+                lista_nome_chines.append(row[1])
+                lista_nome_portugues.append(row[2])
                 lista_precos.append(row[3])
                 print(f"> {row[1]} - {row[2]}")
 
@@ -129,8 +133,8 @@ def cadastrar():
     # Tabela order_items
     # order_id(numero_pedido_novo), product_id, product_qty, product_price
     # 
-    # 
-
+    # linhas_imprimidas = variável para impressao
+    linhas_imprimidas = []
 
     # Na Tabela "orders"
     # ------------------
@@ -141,6 +145,13 @@ def cadastrar():
     cur.execute(sql, ( mesa,data_pedido,hora_pedido, total_value, ))
     con.commit()
     con.close()
+
+    linhas_imprimidas.append (str(data_pedido) + " " + str(hora_pedido))
+    linhas_imprimidas.append("No.  " + str(numero_pedido_novo))
+    linhas_imprimidas.append("Mesa:" + " " + str(mesa))
+    n = len(lista_comidas)
+    for i in range(n):
+        linhas_imprimidas.append(str(lista_nome_chines[i]) + " " + str(lista_nome_portugues[i]))
 
     # Na Tabela "order_items"
     # -----------------------
@@ -155,6 +166,8 @@ def cadastrar():
         cur.execute(sql, (numero_pedido_novo, lista_comidas[i],1,lista_precos[i])) 
         con.commit()
         con.close()
+
+        
 
     print("Cadastrado com sucesso e todos os produtos cadastrados no pedido.")
     print("\n\nContinuando com impressao ...")
@@ -171,14 +184,14 @@ def cadastrar():
     hDC.SelectObject(font)
     left = 20
     top = 30
-    for impressao_linha in impressao_linhas:
-        hDC.TextOut(left,top,impressao_linha)
+    for linha in linhas_imprimidas:
+        hDC.TextOut(left,top,linha)
         top += 40
 
     hDC.EndPage()
     hDC.EndDoc()
     hDC.DeleteDC()
-    
+
 def consultar():
 
     # Mostrar um Menu de qual opcao deseja consultar
