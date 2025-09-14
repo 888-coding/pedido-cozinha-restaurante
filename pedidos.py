@@ -2,6 +2,8 @@ import os
 import time 
 import sqlite3
 from datetime import datetime
+import win32print
+import win32ui 
 
 
 def pedidos_menu():
@@ -85,7 +87,7 @@ def cadastrar():
                 print(f"> {row[1]} - {row[2]}")
 
 
-    # imprimir lista de comida 
+    # Mostrar lista de comida 
     print(f"Lista dos codigos dos produtos : {lista_comidas}") 
     print(f"Precos unitarios :{lista_precos}")
 
@@ -150,12 +152,33 @@ def cadastrar():
         sql = """ INSERT INTO order_items(order_id, product_id, product_qty, product_price)
                 VALUES (?, ?, ?, ?)
             """
-        cur.execute(sql, (numero_pedido_novo, lista_comidas[i],1,lista_precos[i])) #aqui
+        cur.execute(sql, (numero_pedido_novo, lista_comidas[i],1,lista_precos[i])) 
         con.commit()
         con.close()
 
     print("Cadastrado com sucesso e todos os produtos cadastrados no pedido.")
+    print("\n\nContinuando com impressao ...")
 
+    # Impressão em imprimessora térmica SWEDA
+    printer_name = "Microsoft Print to PDF" # Nome da impressora 
+    hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
+    printer_info = win32print.GetPrinter(hprinter, 2)
+    hDC = win32ui.CreateDC() # Iniciar o trabalho de impressao
+    hDC.CreatePrinterDC(printer_name)
+    hDC.StartDoc("Teste Python")
+    hDC.StartPage()
+    font = win32ui.CreateFont({"name": "SimSum", "height": 40, "weight": 700}) # Fonte Chines
+    hDC.SelectObject(font)
+    left = 20
+    top = 30
+    for impressao_linha in impressao_linhas:
+        hDC.TextOut(left,top,impressao_linha)
+        top += 40
+
+    hDC.EndPage()
+    hDC.EndDoc()
+    hDC.DeleteDC()
+    
 def consultar():
 
     # Mostrar um Menu de qual opcao deseja consultar
@@ -194,6 +217,7 @@ def consultar():
 
         if not rows:
             print("Nao foi encontrado nada!")
+            time.sleep(1)
         else:
             for row in rows:
                print(f"Número do pedido : {row[0]}") 
@@ -228,5 +252,4 @@ def consultar():
         print("==========================================")
         print(f"Valor total do periodo : {float(venda_total_periodo)/100:.2f}")
         print("==========================================")
-
 
