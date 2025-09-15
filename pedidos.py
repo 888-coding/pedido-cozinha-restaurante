@@ -151,7 +151,8 @@ def cadastrar():
     linhas_imprimidas.append("Mesa:" + " " + str(mesa))
     n = len(lista_comidas)
     for i in range(n):
-        linhas_imprimidas.append(str(lista_nome_chines[i]) + " " + str(lista_nome_portugues[i]))
+        linhas_imprimidas.append(str(lista_nome_chines[i]))
+        linhas_imprimidas.append(str(lista_nome_portugues[i]))
 
     # Na Tabela "order_items"
     # -----------------------
