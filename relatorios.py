@@ -17,4 +17,18 @@ def menu_relatorios():
         if opcao == "0":
             break
         elif opcao == "1":
-            pass
+            relatorio_vendas_dia()
+
+def relatorio_vendas_dia():
+    
+
+    os.system("cls")
+    print("=================================")
+    print(" > Relatório vendas por dia ")
+    print("=================================")
+    
+    input("\n\n > Digite a data (aaaa-mm-dd): ")
+
+
+    
+
