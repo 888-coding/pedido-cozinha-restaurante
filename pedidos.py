@@ -146,7 +146,8 @@ def cadastrar():
     con.commit()
     con.close()
 
-    linhas_imprimidas.append (str(data_pedido) + " " + str(hora_pedido))
+    linhas_imprimidas.append (str(data_pedido))
+    linhas_imprimidas.append(str(hora_pedido))
     linhas_imprimidas.append("No.  " + str(numero_pedido_novo))
     linhas_imprimidas.append("Mesa:" + " " + str(mesa))
     n = len(lista_comidas)
