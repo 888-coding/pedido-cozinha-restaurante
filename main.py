@@ -1,6 +1,7 @@
 import os 
 from pedidos import menu_pedidos
 from produtos import menu_produtos
+from relatorios import menu_relatorios
 
 def menu_principal():
     while True:
@@ -16,7 +17,7 @@ def menu_principal():
         elif opcao == "2":
             menu_produtos()
         elif opcao == "3":
-            print("Relatorios !")
+            menu_relatorios()
         elif opcao == "0":
             break
         else:
