@@ -1,6 +1,7 @@
 import os
 import sqlite3
 from datetime import date
+import time
 
 def menu_relatorios():
     while True:
@@ -31,16 +32,20 @@ def relatorio_vendas_dia():
 
     con = sqlite3.connect("database.db")
     cur = con.cursor()
-    sql = "SELECT * FROM orders WHERE order_date = ?"
+    sql = "SELECT id, order_date, order_time, total_value FROM orders WHERE order_date = ? ORDER BY id ASC"
     cur.execute(sql, (data,))
     rows = cur.fetchall()
     cur.close()
     con.close()
     if rows:
+        valor_do_dia = 0 
         for row in rows:
-            print(row[0])
-            pass
-        pass
+            n = len(row)
+            print(f"{row[0]} - Horas: {row[2]} - Valor: R$ {float(row[3])/100:.2f}")
+            valor_do_dia += row[3]
+        print(f"\n\nValor vendido do dia : {float(valor_do_dia)/100:.2f}")
+        input("\nDigite algo para continuar...")
+        time.sleep(0.4)
     else:
         os.system("cls")
         print("Não encontrado nenhum pedido na data.")
