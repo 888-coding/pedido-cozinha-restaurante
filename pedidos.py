@@ -149,7 +149,7 @@ def cadastrar():
     linhas_imprimidas.append (str(data_pedido))
     linhas_imprimidas.append(str(hora_pedido))
     linhas_imprimidas.append("No.  " + str(numero_pedido_novo))
-    linhas_imprimidas.append("Mesa:" + " " + str(mesa))
+    linhas_imprimidas.append("桌 Mesa:" + " >> " + str(mesa))
     n = len(lista_comidas)
     for i in range(n):
         linhas_imprimidas.append(str(lista_nome_chines[i]))
