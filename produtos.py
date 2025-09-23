@@ -168,7 +168,7 @@ def alterar_nome():
 
     # Consultar o codigo produto
     while True:
-        code = input("\nDigite o codigo do produto : ")
+        code = str(input("\nDigite o codigo do produto : ").upper())
     
         con = sqlite3.connect("database.db")
         cur = con.cursor()
