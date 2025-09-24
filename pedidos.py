@@ -150,10 +150,16 @@ def cadastrar():
     linhas_imprimidas.append(str(hora_pedido))
     linhas_imprimidas.append("No.  " + str(numero_pedido_novo))
     linhas_imprimidas.append("桌 Mesa:" + " >> " + str(mesa))
+    
+    valor_total = 0 
     n = len(lista_comidas)
     for i in range(n):
-        linhas_imprimidas.append(str(lista_nome_chines[i]))
+        # linhas_imprimidas.append(str(i+1) + ". " + str(lista_nome_chines[i]) + " " + str(float(lista_precos[i])/100:.2f))
+        linhas_imprimidas.append(f"{i+1}. {lista_nome_chines[i]} {float(lista_precos[i])/100:.2f}")
         linhas_imprimidas.append(str(lista_nome_portugues[i]))
+        valor_total += lista_precos[i]
+    linhas_imprimidas.append("--------------------")
+    linhas_imprimidas.append(f"Total : R$ {float(valor_total)/100:.2f}")
 
     # Na Tabela "order_items"
     # -----------------------
