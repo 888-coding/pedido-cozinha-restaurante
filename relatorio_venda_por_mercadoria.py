@@ -38,7 +38,13 @@ def relatorio_venda_por_mercadorias():
             cur.close()
             con.close()
             print("Quantidade por produto")
-            print(f"> id do produto : {id_product} .  Quantidade : {rows[0]}\n")
+            con = sqlite3.connect("database.db")
+            cur = con.cursor()
+            sql = "SELECT code, name_chinese, name_portuguese FROM products WHERE id = ?"
+            cur.execute(sql, (id_product,))
+            row = cur.fetchone()
+
+            print(f"> Codigo do produto : {row[0]}. Nome: {row[1]} - {row[2]}  Quantidade : {rows[0]}\n")
     else:
         print("Não foi encontrado nenhum registro.")
 
