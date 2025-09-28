@@ -17,8 +17,10 @@ def relatorio_venda_por_mercadorias():
             SELECT DISTINCT oi.product_id FROM orders AS o
             JOIN order_items AS oi 
             ON o.id = oi.order_id
+            WHERE strftime('%m', order_date) = ? 
+            AND strftime('%Y', order_date) = ?
             """
-    cur.execute(sql,() )
+    cur.execute(sql,(mes, ano,) )
     rows = cur.fetchall()
     cur.close()
     con.close()
