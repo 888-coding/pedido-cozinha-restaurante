@@ -2,7 +2,7 @@ import os
 import sqlite3
 
 
-def relatorio_venda_por_mercadorias():
+def relatorio_venda_por_mercadorias_mensal():
     os.system("cls")
     print("======================================")
     print(" > Relatorio Vendas por mercadorias")
@@ -33,7 +33,7 @@ def relatorio_venda_por_mercadorias():
                     JOIN orders AS o ON  oi.order_id = o.id
                     WHERE oi.product_id = ? AND strftime('%m', o.order_date) = ? AND strftime('%Y', o.order_date) = ?
                     """
-            cur.execute(sql, (id_product,mes.zfill(2),ano,))
+            cur.execute(sql, (id_product, mes.zfill(2), ano,))
             rows = cur.fetchone()
             print("Quantidade por produto")
             sql = ("SELECT code, name_chinese, name_portuguese FROM products WHERE id = ?")
@@ -48,5 +48,5 @@ def relatorio_venda_por_mercadorias():
     con.close()
 
 
-relatorio_venda_por_mercadorias()
+relatorio_venda_por_mercadorias_mensal()
 
