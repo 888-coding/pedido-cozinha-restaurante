@@ -12,6 +12,7 @@ def menu_relatorios():
         print("1. Relatorio de vendas por dia")
         print("2. Relatorio de vendas por mês")
         print("3. Relatorio de vendas por periodo")
+        print("4. Relatorio de vendas mercadoria mensal")
         print("0. Voltar")
 
         print("===============================")
@@ -22,6 +23,8 @@ def menu_relatorios():
             relatorio_vendas_dia()
         elif opcao == "2":
             relatorio_vendas_mes()
+        elif opcao == "4":
+            relatorio_venda_por_mercadorias_mensal()
 
 
 def relatorio_vendas_dia():
