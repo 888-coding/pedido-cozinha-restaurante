@@ -29,4 +29,7 @@ def relatorio_vendas_periodo():
     cur.close()
     con.close()
 
+
+    for row in rows:
+        print(row)
 relatorio_vendas_periodo()
