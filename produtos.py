@@ -23,13 +23,14 @@ def menu_produtos():
             produtos_consultar()
         elif opcao == "3":
             alterar_preco()
-        if opcao == "4":
+        elif opcao == "4":
             alterar_nome()
         elif opcao == "0":
             break
         else: 
-            print("\n\nOpcao invalida")
-            time.sleep(0.8)
+            print("Opcao invalida.")
+            time.sleep(0.5)
+
 
 def produto_cadastrar():
     
