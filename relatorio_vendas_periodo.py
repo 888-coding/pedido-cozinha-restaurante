@@ -11,16 +11,22 @@ def relatorio_vendas_periodo():
     inicio_ano = input("> Digite o ano : ")
     inicio_mes = input("> Digite o mes : ")
     inicio_dia = input("> Digite o dia : ")
-    inicio_data = inicio_ano + inicio_mes.zfill(2) + inicio_dia.zfill(2)
+    inicio_data = inicio_ano + "-" + inicio_mes.zfill(2) + "-" + inicio_dia.zfill(2)
 
     print("\n\nFim : ")
     fim_ano = input("> Digite o ano : ")
     fim_mes = input("> Digite o mes : ")
     fim_dia = input("> Digite o dia : ")
-    fim_data = fim_ano + fim_mes.zfill(2) + fim_dia.zfill(2)
+    fim_data = fim_ano + "-" + fim_mes.zfill(2) + "-" + fim_dia.zfill(2)
 
     print(f"\n\nVoce digitou inicio de : {inicio_data}   e o fim de : {fim_data}")
 
-
+    con = sqlite3.connect("database.db")
+    cur = con.cursor()
+    sql = "SELECT * FROM orders WHERE order_date >= ? AND order_date <= ? "
+    cur.execute(sql, (inicio_data, fim_data, ) )
+    rows = cur.fetchall()
+    cur.close()
+    con.close()
 
 relatorio_vendas_periodo()
