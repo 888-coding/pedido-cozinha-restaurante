@@ -185,21 +185,22 @@ def cadastrar():
     printer_name = "Microsoft Print to PDF" # Nome da impressora 
     hprinter = win32print.OpenPrinter(printer_name) # Abrir impressora 
     printer_info = win32print.GetPrinter(hprinter, 2)
-    hDC = win32ui.CreateDC() # Iniciar o trabalho de impressao
-    hDC.CreatePrinterDC(printer_name)
-    hDC.StartDoc("Teste Python")
-    hDC.StartPage()
-    font = win32ui.CreateFont({"name": "SimSum", "height": 40, "weight": 700}) # Fonte Chines
-    hDC.SelectObject(font)
-    left = 20
-    top = 30
-    for linha in linhas_imprimidas:
-        hDC.TextOut(left,top,linha)
-        top += 40
+    for i in range(2):
+        hDC = win32ui.CreateDC() # Iniciar o trabalho de impressao
+        hDC.CreatePrinterDC(printer_name)
+        hDC.StartDoc("Teste Python")
+        hDC.StartPage()
+        font = win32ui.CreateFont({"name": "SimSum", "height": 40, "weight": 700}) # Fonte Chines
+        hDC.SelectObject(font)
+        left = 20
+        top = 30
+        for linha in linhas_imprimidas:
+            hDC.TextOut(left,top,linha)
+            top += 40
 
-    hDC.EndPage()
-    hDC.EndDoc()
-    hDC.DeleteDC()
+        hDC.EndPage()
+        hDC.EndDoc()
+        hDC.DeleteDC()
 
 def consultar():
 
