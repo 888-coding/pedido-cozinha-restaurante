@@ -17,7 +17,7 @@ def menu_produtos():
         print("3. Alterar preco")
         print("4. Alterar nome")
         print("0. Voltar")
-        
+
         opcao = input("\n\n> Opcao: ")
 
         if opcao == "1":
@@ -30,19 +30,19 @@ def menu_produtos():
             alterar_nome()
         elif opcao == "0":
             break
-        else: 
+        else:
             print("Opcao invalida.")
             time.sleep(0.5)
 
+
 def produto_cadastrar():
-    
-    # Cadastrar produto 
+    # Cadastrar produto
     # Tabela : id, code, name_chinese, name_portuguese, price
-    # 
-    # 
+    #
+    #
 
     os.system("cls")
-    
+
     print("==========================")
     print(" >  Cadastro de produto ")
     print("==========================")
@@ -53,7 +53,7 @@ def produto_cadastrar():
     input_price = input("> PREÇO : R$ ")
 
     price = float(input_price) * 100
-    
+
     # Inserir dados , code, name_chinese, name_portuguese, price
     con = sqlite3.connect("database.db")
     cur = con.cursor()
@@ -61,7 +61,7 @@ def produto_cadastrar():
         INSERT INTO products (code, name_chinese, name_portuguese, price)
         VALUES (?, ?, ?, ?)
     """
-    cur.execute(sql, (code, name_chinese, name_portuguese, price) )
+    cur.execute(sql, (code, name_chinese, name_portuguese, price))
     con.commit()
     con.close()
 
@@ -73,7 +73,6 @@ def produtos_consultar():
     print("=================================")
     print(" > Consultar todos os produtos")
     print("=================================")
-
 
     console = Console()
     tabela = Table(title="Produtos ")
@@ -90,7 +89,7 @@ def produtos_consultar():
     tabela.add_column("PRECO", style="green")
 
     for row in rows:
-        valor_formatado = str(f"{float(row[4])/100:.2f}")
+        valor_formatado = str(f"{float(row[4]) / 100:.2f}")
         code = str(row[1])
         descricao = row[2] + " - " + row[3]
         tabela.add_row(code, descricao, valor_formatado)
@@ -100,27 +99,27 @@ def produtos_consultar():
     input("Tecle para continuar ..")
     time.sleep(1.5)
 
-def alterar_preco():
-    
-    # Tabela products 
-    # id, code, name_chinese, name_portuguese, price  
-    # 
-    # 
-    # 
 
-    while True:    
-        # input do id para procurar 
+def alterar_preco():
+    # Tabela products
+    # id, code, name_chinese, name_portuguese, price
+    #
+    #
+    #
+
+    while True:
+        # input do id para procurar
         os.system("cls")
         print("====================")
         print("> Procurar produto  ")
         print("====================")
 
         code = str(input("\n> Digite o codigo : ").upper())
-        
+
         con = sqlite3.connect("database.db")
         cur = con.cursor()
         sql = "SELECT id, code, name_chinese, name_portuguese, price FROM products WHERE code = ? "
-        cur.execute(sql, (code,) )
+        cur.execute(sql, (code,))
         row = cur.fetchone()
         con.close()
         if not row:
@@ -136,7 +135,7 @@ def alterar_preco():
     name_portugues = row[3]
     old_price = row[4]
 
-    old_price = float(old_price) / 100 
+    old_price = float(old_price) / 100
 
     print(f"Codigo : {code}")
     time.sleep(0.4)
@@ -149,17 +148,23 @@ def alterar_preco():
         deseja = input("Deseja alterar (s/n) ? : ").upper()
         if deseja == "S" or deseja == "N":
             break
-    
+
     if deseja == "S":
-        # Novo valor 
+        # Novo valor
         new_price = input("Digite o novo valor : R$ ")
         new_price = float(new_price) * 100
 
-        # Atualizar no banco de dados 
+        # Atualizar no banco de dados
         con = sqlite3.connect("database.db")
         cur = con.cursor()
         sql = "UPDATE products SET price = ? WHERE id = ? "
-        cur.execute(sql, (new_price, id, ) )
+        cur.execute(
+            sql,
+            (
+                new_price,
+                id,
+            ),
+        )
         con.commit()
         con.close()
 
@@ -167,9 +172,9 @@ def alterar_preco():
     else:
         print("Ok. Não foi alterado o preço")
 
+
 def alterar_nome():
-    
-    # Tabela : products 
+    # Tabela : products
     # id, code, name_chinese, name_portuguese, price
     # > id, code, name_chinese, name_portugues
     #
@@ -182,11 +187,11 @@ def alterar_nome():
     # Consultar o codigo produto
     while True:
         code = str(input("\nDigite o codigo do produto : ").upper())
-    
+
         con = sqlite3.connect("database.db")
         cur = con.cursor()
         sql = "SELECT id, code, name_chinese, name_portuguese FROM products WHERE code = ? "
-        cur.execute( sql, (code, ) )
+        cur.execute(sql, (code,))
         row = cur.fetchone()
         con.close()
 
@@ -194,33 +199,40 @@ def alterar_nome():
             print("Produto não encontrado!")
         else:
             break
-    
+
     id = row[0]
     code = row[1]
     name_chinese = row[2]
     name_portuguese = row[3]
-    
+
     print(f"Codigo : {code}")
-    time.sleep(0.4)    
+    time.sleep(0.4)
     print(f"Nome : {name_chinese} - {name_portuguese}")
     time.sleep(0.4)
-    
+
     while True:
         deseja = input("Deseja alterar (s/n) ? ").upper()
         if deseja == "S" or deseja == "N":
             break
-    
+
     time.sleep(0.4)
 
-    # Novo nome 
+    # Novo nome
     new_name_chinese = input("Novo nome em chinês : ").upper()
     new_name_portuguese = input("\nNovo nome em português : ").upper()
 
     # Alterar no banco de dados os nomes
-    con = sqlite3.connect("database.db")    
+    con = sqlite3.connect("database.db")
     cur = con.cursor()
     sql = "UPDATE products SET name_chinese = ?, name_portuguese = ? WHERE id = ?"
-    cur.execute(sql, (new_name_chinese,new_name_portuguese, id, ))
+    cur.execute(
+        sql,
+        (
+            new_name_chinese,
+            new_name_portuguese,
+            id,
+        ),
+    )
     con.commit()
     con.close()
 

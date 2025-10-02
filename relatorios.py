@@ -2,6 +2,8 @@ import os
 import sqlite3
 from datetime import date
 import time
+from rich.console import Console
+from rich.table import Table
 
 def menu_relatorios():
     while True:
@@ -70,25 +72,41 @@ def relatorio_vendas_mes():
     # [Conexão]
     con = sqlite3.connect("database.db")
     cur = con.cursor()
-    sql =   """SELECT id FROM orders 
+    sql =   """SELECT id, order_date, total_value FROM orders 
                 WHERE strftime('%m', order_date) = ?
                 AND strftime('%Y', order_date) = ?
             """
-    cur.execute(sql)
+    cur.execute(sql, (mes, ano,))
     rows = cur.fetchall()
     cur.close()
     con.close()
 
     # [Mostrar resultados]
+    console = Console()
+    tabela = Table(title="Pedidos")
+    tabela.add_column("No Pedido", style="cyan")
+    tabela.add_column("Data",style="white")
+    tabela.add_column("Valor", style="green")
+
     if rows:
+        valor_total_mensal = 0 
         for row in rows:
-            print(row[0])
-            input("digite para continuar")
+            id = str(row[0])
+            order_date = row[1]
+            total_value = f"{float(row[2])/100:.2f}"
+            valor_total_mensal = valor_total_mensal + row[2]
+            tabela.add_row(id, order_date, total_value)
+            valor_formatado = f"{float(valor_total_mensal)/100:.2f}"
+        tabela.add_row("","TOTAL",valor_formatado)
     else:
         os.system("cls")
         print("Não foi encontrado nada neste periodo")
         time.sleep(2)
 
+
+    console.print(tabela)
+
+    input("\n\nDigite algo para continuar ...")
 def relatorio_venda_por_mercadorias_mensal():
     os.system("cls")
     print("======================================")
