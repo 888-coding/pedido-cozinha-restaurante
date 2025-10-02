@@ -2,6 +2,9 @@ import os
 from datetime import datetime
 import time
 import sqlite3
+from rich.console import Console
+from rich.table import Table
+
 
 def menu_produtos():
     while True:
@@ -32,46 +35,15 @@ def menu_produtos():
             time.sleep(0.5)
 
 
-def produto_cadastrar():
-    
-    # Cadastrar produto 
-    # Tabela : id, code, name_chinese, name_portuguese, price
-    # 
-    # 
-
-    os.system("cls")
-    
-    print("==========================")
-    print(" >  Cadastro de produto ")
-    print("==========================")
-
-    code = input("\n> CODIGO DO PRODUTO : ").upper()
-    name_chinese = input("> NOME CHINES : ")
-    name_portuguese = input("> NOME PORTUGUES : ").upper()
-    input_price = input("> PREÇO : R$ ")
-
-    price = float(input_price) * 100
-    
-    # Inserir dados , code, name_chinese, name_portuguese, price
-    con = sqlite3.connect("database.db")
-    cur = con.cursor()
-    sql = """
-        INSERT INTO products (code, name_chinese, name_portuguese, price)
-        VALUES (?, ?, ?, ?)
-    """
-    cur.execute(sql, (code, name_chinese, name_portuguese, price) )
-    con.commit()
-    con.close()
-
-    print("Cadastrado com sucesso ! ")
-    time.sleep(1)
-
 def produtos_consultar():
     os.system("cls")
     print("=================================")
     print(" > Consultar todos os produtos")
     print("=================================")
 
+
+    console = Console()
+    tabela = Table(title="Produtos ")
     con = sqlite3.connect("database.db")
     cur = con.cursor()
     sql = "SELECT id, code, name_chinese, name_portuguese, price FROM products ORDER BY code ASC"
@@ -80,13 +52,20 @@ def produtos_consultar():
     cur.close()
     con.close()
 
-    for row in rows:
-        print(f"Codigo : {row[1]} - {row[2]} {row[3]} Preço: {float(row[4])/100:.2f}")
+    tabela.add_column("CODIGO", style="cyan")
+    tabela.add_column("DESCRICAO", style="white")
+    tabela.add_column("PRECO", style="green")
 
+    for row in rows:
+        valor_formatado = str(f"{float(row[4])/100:.2f}")
+        code = str(row[1])
+        descricao = row[2] + " - " + row[3]
+        tabela.add_row(code, descricao, valor_formatado)
+
+    console.print(tabela)
     print("\n\n Fim de linha .")
     input("Tecle para continuar ..")
-    time.sleep(1.5)   
-
+    time.sleep(1.5)
 
 def alterar_preco():
     
