@@ -78,11 +78,28 @@ def consultar():
         cur.close()
         con.close()
 
-        venda_total_periodo = 0 
-        for row in rows:
-            print(row)
-            venda_total_periodo += int(row[2])
-        print("==========================================")
-        print(f"Valor total do periodo : {float(venda_total_periodo)/100:.2f}")
-        print("==========================================")
+        if rows:
+            venda_total_periodo = 0
+
+            console = Console()
+            tabela = Table() 
+            tabela.add_column("Numero Pedido")
+            tabela.add_column("Data")
+            tabela.add_column("Valor", style="green")
+
+
+            for row in rows:
+                tabela_pedido = str(row[0])
+                tabela_data = row[1]
+                tabela_valor = f"{float(row[2])/100:.2f}"
+
+                tabela.add_row(tabela_pedido, tabela_data, tabela_valor)
+                venda_total_periodo += int(row[2])
+            
+            venda_total_periodo = f"{float(venda_total_periodo)/100:.2f}"
+            tabela.add_row("","Total",str(venda_total_periodo))
+
+            console.print(tabela)
+        else:
+            print("Não foi encontrado pedido nessa data!")
 consultar()
