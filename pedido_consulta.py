@@ -2,6 +2,8 @@ import os
 import sqlite3
 import time 
 from datetime import datetime
+from rich.console import Console
+from rich.table import Table
 
 def consultar():
 
@@ -42,12 +44,20 @@ def consultar():
         if not rows:
             print("Nao foi encontrado nada!")
         else:
+            console = Console()
+            tabela = Table(title="Pedido")
+            tabela.add_column("Numero Pedido")
+            tabela.add_column("Data")
+            tabela.add_column("Hora")
+            tabela.add_column("Valor")
+
             for row in rows:
-               print(f"Número do pedido : {row[0]}") 
-               time.sleep(0.4)
-               print(f"   {row[2]}")
-               time.sleep(0.4)
-               print(f"   {float(row[3])/100:.2f}\n")
+                tabela_pedido = str(row[0])
+                tabela_data = row[1]
+                tabela_horas = row[2]
+                tabela_valor = f"{float(row[3])/100:.2f}"
+                tabela.add_row(tabela_pedido, tabela_data, tabela_horas, tabela_valor)
+            console.print(tabela)            
     else:
         print("=============================")
         print(" > Outro periodo : ")
