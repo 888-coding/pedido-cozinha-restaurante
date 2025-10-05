@@ -34,23 +34,27 @@ def pedido_alterar():
         print(f"Mesa: {row[1]}")
         print(f"Valor Total: {float(row[4])/100:.2f}")
 
-        sql = "SELECT * FROM order_items WHERE order_id = ?"
+        sql = """SELECT oi.id, oi.order_id, p.code, oi.product_qty, oi.product_price, p.name_portuguese
+        FROM order_items AS oi
+        JOIN products AS p ON oi.product_id = p.id 
+        WHERE order_id = ?"""
         cur.execute(sql, (numero_pedido,))
         rows = cur.fetchall()
 
         if rows:
             tabela.add_column("Codigo Produto")
             tabela.add_column("Nome")
-            tabela.add_column("Quantidade")
-            tabela.add_column("Preco")
+            tabela.add_column("Quantidade", style="cyan")
+            tabela.add_column("Preco", style="green")
 
             for row in rows:
                 item_id = row[0]
                 order_id = row[1]
                 product_id = str(row[2])
                 product_qty = str(row[3])
-                product_price = str(row[4])
-                tabela.add_row(product_id, "", product_qty, product_price)
+                product_price = str(f"{float(row[4])/100:.2f}")
+                product_name_portuguese = row[5]
+                tabela.add_row(product_id, product_name_portuguese, product_qty, product_price)
             console.print(tabela)
         else:
             print("Não encontrado itens ")
