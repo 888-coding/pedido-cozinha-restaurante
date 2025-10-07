@@ -65,9 +65,9 @@ def pedido_alterar():
             opcao = input("> Digite a opcao : ")
 
             if opcao == "1":
-                pass
+                pedido_alterar_item_alterar(con, cur)
             elif opcao == "2":
-                pass
+                pedido_alterar_item_deletar(con, cur)
             else:
                 return 
         else:
@@ -82,5 +82,12 @@ def pedido_alterar():
     cur.close()
     con.close()
 
+def pedido_alterar_item_alterar(con, cur):
+    print("Alterar item ")
+    time.sleep(1)
+
+def pedido_alterar_item_deletar(con, cur):
+    print("Deletar item")
+    time.sleep(1)
 
 pedido_alterar()
