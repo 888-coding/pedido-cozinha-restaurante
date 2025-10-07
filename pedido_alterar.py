@@ -11,7 +11,7 @@ def pedido_alterar():
     tabela = Table()
 
     print("==================================")
-    print("Alterar pedido ")
+    print(" > Alterar pedido ")
     print("==================================")
 
     numero_pedido = int(input("> Digite o numero do pedido : "))
@@ -42,20 +42,34 @@ def pedido_alterar():
         rows = cur.fetchall()
 
         if rows:
+            tabela.add_column("ID Item")
             tabela.add_column("Codigo Produto")
             tabela.add_column("Nome")
             tabela.add_column("Quantidade", style="cyan")
             tabela.add_column("Preco", style="green")
-
+            i = 0
             for row in rows:
-                item_id = row[0]
+
+                item_id = str(row[0])
                 order_id = row[1]
                 product_id = str(row[2])
                 product_qty = str(row[3])
                 product_price = str(f"{float(row[4])/100:.2f}")
                 product_name_portuguese = row[5]
-                tabela.add_row(product_id, product_name_portuguese, product_qty, product_price)
+                tabela.add_row(item_id,product_id, product_name_portuguese, product_qty, product_price)
             console.print(tabela)
+
+            print("\nOpções: ")
+            print("1. Alterar item")
+            print("2. Excluir item")
+            opcao = input("> Digite a opcao : ")
+
+            if opcao == "1":
+                pass
+            elif opcao == "2":
+                pass
+            else:
+                return 
         else:
             print("Não encontrado itens ")
 
