@@ -40,6 +40,8 @@ def pedido_alterar():
         WHERE order_id = ?"""
         cur.execute(sql, (numero_pedido,))
         rows = cur.fetchall()
+        cur.close()
+        con.close()
 
         if rows:
             tabela.add_column("ID Item")
@@ -65,9 +67,9 @@ def pedido_alterar():
             opcao = input("> Digite a opcao : ")
 
             if opcao == "1":
-                pedido_alterar_item_alterar(con, cur)
+                pedido_alterar_item_alterar()
             elif opcao == "2":
-                pedido_alterar_item_deletar(con, cur)
+                pedido_alterar_item_deletar()
             else:
                 return 
         else:
@@ -79,14 +81,12 @@ def pedido_alterar():
         time.sleep(0.8)
 
 
-    cur.close()
-    con.close()
 
-def pedido_alterar_item_alterar(con, cur):
+def pedido_alterar_item_alterar():
     print("Alterar item ")
     time.sleep(1)
 
-def pedido_alterar_item_deletar(con, cur):
+def pedido_alterar_item_deletar():
     print("Deletar item")
     time.sleep(1)
 
