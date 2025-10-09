@@ -83,6 +83,17 @@ def pedido_alterar():
 
 
 def pedido_alterar_item_alterar(numero_pedido):
+    while True:
+        numero_item = int(input(f"No {numero_pedido}, informe o numero do item para alterar : "))
+        con = sqlite3.connect("database.db")
+        cur = con.cursor()
+        sql = "SELECT * FROM order_items WHERE id = ? AND order_id = ? "
+        cur.execute(sql, (numero_item, numero_pedido) )
+        row = cur.fetchone()
+        if row:
+            break
+        else:
+            print("Não encontrado")
 
 def pedido_alterar_item_deletar():
     print("Deletar item")
