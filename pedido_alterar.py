@@ -119,7 +119,25 @@ def pedido_alterar_item_alterar(numero_pedido):
     console.print(tabela)    
 
     # Novo codigo do produto 
+    while True:
+        novo_codigo_comida = input("\n\n > Digite o novo codigo da comida : ")
+        sql = "SELECT * FROM products WHERE code = ? "
+        cur.execute(sql, (novo_codigo_comida,) )
+        row = cur.fetchone()
+        if row:
+            break
+        else: 
+            print("Codigo nao encontrado !")
+    
+    # Novo codigo encontrado, e correto, portanto agora faço update na tabela de 'items de pedidos'
+    #  
+
+
+
     #aqui
+    cur.close()
+    con.close()
+
 def pedido_alterar_item_deletar():
     print("Deletar item")
     time.sleep(1)
