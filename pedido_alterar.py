@@ -83,42 +83,6 @@ def pedido_alterar():
 
 
 def pedido_alterar_item_alterar(numero_pedido):
-    print("Digite o numero do item para alterar")
-    numero_item = int(input(" > Numero de item : "))
-
-    con = sqlite3.connect("database.db")
-    cur = con.cursor()
-
-    sql = """SELECT oi.id, oi.order_id, oi.product_id, oi.product_qty, oi.product_price, p.code, p.name_portuguese
-    FROM order_items AS oi 
-    JOIN products AS p ON oi.product_id = p.id
-    WHERE oi.order_id = ? AND oi.id = ?"""
-    cur.execute(sql, (numero_pedido, numero_item) )
-    row = cur.fetchone()
-
-    if row :
-        print("Encontrado!")
-        print(f"id {row[0]} {row[5]} - {row[6]} quantidade: {row[2]} preco {row[4]}")
-
-        while True:
-
-            novo_codigo_produto = input(">  Novo codigo de produto : ")
-
-            sql = "SELECT id, code, name_portuguese, price FROM products WHERE code = ? "
-            cur.execute(sql, (novo_codigo_produto,))
-            row = cur.fetchone()
-
-            if row:
-                break
-            else:
-                print("Codigo invalido")
-                time.sleep(0.6)
-        
-        print(row)
-
-        sql = "UPDATE order_items" #AQUI
-    else:
-        print("Não encontrado!")
 
 def pedido_alterar_item_deletar():
     print("Deletar item")
