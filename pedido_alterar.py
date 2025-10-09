@@ -87,7 +87,10 @@ def pedido_alterar_item_alterar(numero_pedido):
         numero_item = int(input(f"No {numero_pedido}, informe o numero do item para alterar : "))
         con = sqlite3.connect("database.db")
         cur = con.cursor()
-        sql = "SELECT product_id, product_qty,product_price FROM order_items WHERE id = ? AND order_id = ? "
+        sql = """SELECT oi.product_id, oi.product_qty,oi.product_price, p.name_portuguese
+        FROM order_items AS oi
+        JOIN products AS p ON oi.product_id = p.id
+        WHERE oi.id = ? AND oi.order_id = ? """
         cur.execute(sql, (numero_item, numero_pedido) )
         row = cur.fetchone()
         if row:
@@ -98,9 +101,25 @@ def pedido_alterar_item_alterar(numero_pedido):
     numero_pedido = numero_pedido
     numero_item = numero_item
     old_product_id = row[0]
-    old_prodcut_qty = row[1]
+    old_product_qty = row[1]
     old_product_price = row[2]
+    old_product_name = row[3]
 
+    tabela = Table()
+    console = Console()
+
+    tabela.add_column("Numero Pedido")
+    tabela.add_column("Numero Item")
+    tabela.add_column("id do Produto")
+    tabela.add_column("Quantidade")
+    tabela.add_column("Preco")
+    tabela.add_column("Nome")
+
+    tabela.add_row(str(numero_pedido), str(numero_item), str(old_product_id), str(old_product_qty), str(old_product_price), old_product_name)
+    console.print(tabela)    
+
+    # Novo codigo do produto 
+    #aqui
 def pedido_alterar_item_deletar():
     print("Deletar item")
     time.sleep(1)
