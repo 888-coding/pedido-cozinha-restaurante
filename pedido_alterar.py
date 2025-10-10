@@ -136,10 +136,34 @@ def pedido_alterar_item_alterar(numero_pedido):
     cur.execute(sql, (novo_id_comida, novo_preco_comida,numero_item, ) )
     con.commit()
 
-    # NOTE : Falta fazeer update do total vendido na tabela 'orders'
+    # NOTE : Falta fazer update do total vendido na tabela 'orders'
+    # selecionar todos os dados de order_items o qual tem o order_id igual a : numero_pedido
+    print("Numero pedido : ")
+    print(numero_pedido)
+    input("continuar ..")
+    sql = "SELECT product_price, product_qty FROM order_items WHERE order_id = ? "
+    cur.execute(sql, (numero_pedido,) )
+    rows = cur.fetchall()
+
+    if rows:
+        total_da_venda = 0
+        for row in rows:
+            print(row)
+            preco = row[0]
+            quantidade = row[1]
+            preco_total_da_comida = preco * quantidade
+            total_da_venda += preco_total_da_comida
+            print(f"Preco total da comida : {float(preco_total_da_comida)/100:.2f} ")
+        print(f"Total da venda : {total_da_venda/100:.2f}")
+        #aqui
+    else:
+        print("Não existe")
+
+
+
     print("Atualizado com sucesso!")
     input("Pressione para continuar ..")
-    #aqui
+    
     cur.close()
     con.close()
 
