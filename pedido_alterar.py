@@ -121,19 +121,24 @@ def pedido_alterar_item_alterar(numero_pedido):
     # Novo codigo do produto 
     while True:
         novo_codigo_comida = input("\n\n > Digite o novo codigo da comida : ")
-        sql = "SELECT * FROM products WHERE code = ? "
+        sql = "SELECT id, code, name_portuguese, price FROM products WHERE code = ? "
         cur.execute(sql, (novo_codigo_comida,) )
         row = cur.fetchone()
         if row:
+            novo_id_comida = int(row[0])
+            novo_preco_comida = int(row[3])
             break
         else: 
             print("Codigo nao encontrado !")
     
     # Novo codigo encontrado, e correto, portanto agora faço update na tabela de 'items de pedidos'
-    #  
+    sql = "UPDATE order_items SET product_id = ?, product_price = ? WHERE id = ? "
+    cur.execute(sql, (novo_id_comida, novo_preco_comida,numero_item, ) )
+    con.commit()
 
-
-
+    # NOTE : Falta fazeer update do total vendido na tabela 'orders'
+    print("Atualizado com sucesso!")
+    input("Pressione para continuar ..")
     #aqui
     cur.close()
     con.close()
