@@ -155,6 +155,11 @@ def pedido_alterar_item_alterar(numero_pedido):
             total_da_venda += preco_total_da_comida
             print(f"Preco total da comida : {float(preco_total_da_comida)/100:.2f} ")
         print(f"Total da venda : {total_da_venda/100:.2f}")
+        sql = "UPDATE orders SET total_value = ? WHERE id = ? "
+        cur.execute(sql, (total_da_venda, numero_pedido, ))
+        con.commit()
+
+        print("\n\nAtualizado o valor do total da venda do pedido")
         #aqui
     else:
         print("Não existe")
