@@ -179,11 +179,28 @@ def pedido_alterar_item_deletar(numero_pedido):
     numeracao_item = input("> Qual o numero de item deseja excluir ? :")
     con = sqlite3.connect("database.db")
     cur = con.cursor()
-    sql = "SELECT * FROM order_items WHERE order_id = ? AND id = ?"
+    sql = """SELECT p.id, p.code, p.name_portuguese, oi.product_qty, oi.product_price FROM order_items AS oi
+    JOIN products AS p ON oi.product_id = p.id 
+    WHERE oi.order_id = ? AND oi.id = ?"""
     cur.execute(sql, (numero_pedido, numeracao_item,) )
     row = cur.fetchone()
     if row :
-        print("achou")
+        # Encontrado 
+        tabela.add_column("Numero Pedido")
+        tabela.add_column("Numeracao Item")
+        tabela.add_column("Produto", style="cyan")
+        tabela.add_column("Quantidade")
+        tabela.add_column("Preco unitario", style="green")
+
+        
+        product_id = row[0]
+        product_code = row[1]
+        product_name = row[2]
+        product_qty = row[3]
+        product_price = row[4]
+        descricao_produto = product_code + " " + product_name
+        tabela.add_row(str(numero_pedido), numeracao_item, descricao_produto, str(product_qty), str(product_price))
+        console.print(tabela)
     else:
         print("Erro, numeracao do item errado!")
 
