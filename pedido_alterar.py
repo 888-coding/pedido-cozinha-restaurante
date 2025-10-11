@@ -14,7 +14,7 @@ def pedido_alterar():
     print(" > Alterar pedido ")
     print("==================================")
 
-    numero_pedido = int(input("> Digite o numero do pedido : "))
+    numero_pedido = int(input("> Digite o numero do pedido (zero para sair): "))
 
     con = sqlite3.connect("database.db")
     cur = con.cursor()
@@ -64,14 +64,17 @@ def pedido_alterar():
             print("\nOpções: ")
             print("1. Alterar item")
             print("2. Excluir item")
+            print("0. Voltar")
             opcao = input("> Digite a opcao : ")
 
             if opcao == "1":
                 pedido_alterar_item_alterar(numero_pedido)
             elif opcao == "2":
-                pedido_alterar_item_deletar()
+                pedido_alterar_item_deletar(numero_pedido)
+            elif opcao == "0":
+                return
             else:
-                return 
+                print("Escolha errado!") 
         else:
             print("Não encontrado itens ")
 
@@ -170,8 +173,18 @@ def pedido_alterar_item_alterar(numero_pedido):
     cur.close()
     con.close()
 
-def pedido_alterar_item_deletar():
-    print("Deletar item")
-    time.sleep(1)
+def pedido_alterar_item_deletar(numero_pedido):
+    tabela = Table()
+    console = Console()
+    numeracao_item = input("> Qual o numero de item deseja excluir ? :")
+    con = sqlite3.connect("database.db")
+    cur = con.cursor()
+    sql = "SELECT * FROM order_items WHERE order_id = ? AND id = ?"
+    cur.execute(sql, (numero_pedido, numeracao_item,) )
+    row = cur.fetchone()
+    if row :
+        print("achou")
+    else:
+        print("Erro, numeracao do item errado!")
 
 pedido_alterar()
