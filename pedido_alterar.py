@@ -185,7 +185,6 @@ def pedido_alterar_item_deletar(numero_pedido):
     cur.execute(sql, (numero_pedido, numeracao_item,) )
     row = cur.fetchone()
     if row :
-        # Encontrado 
         tabela.add_column("Numero Pedido")
         tabela.add_column("Numeracao Item")
         tabela.add_column("Produto", style="cyan")
@@ -201,7 +200,30 @@ def pedido_alterar_item_deletar(numero_pedido):
         descricao_produto = product_code + " " + product_name
         tabela.add_row(str(numero_pedido), numeracao_item, descricao_produto, str(product_qty), str(product_price))
         console.print(tabela)
+
+        opcao = input("\n\n Deletar ? (S/N)").upper()
+
+        if opcao == "S":
+            sql = "DELETE FROM order_items WHERE id = ? "
+            cur.execute(sql, (numeracao_item,) )
+            con.commit()
+
+            print("Deletado com sucesso ")
+            #Update do valor total no 'orders'
+            sql = "SELECT product_price FROM order_items WHERE order_id = ?"
+            cur.execute(sql, (numero_pedido,) )
+            rows = cur.fetchall()
+            valor_total = 0
+            for row in rows:
+                valor_total = valor_total + int(row[0])
+            
+            print(f"Valor total atualizado : {valor_total} ")
+            sql = "UPDATE orders SET total_value = ? WHERE id = ? "
+            cur.execute(sql, (valor_total, numero_pedido,) )
+            con.commit()
+            print("Atualizado o valor total na tabela ")
     else:
         print("Erro, numeracao do item errado!")
-
+    cur.close()
+    con.close()
 pedido_alterar()
