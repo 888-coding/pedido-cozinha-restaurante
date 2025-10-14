@@ -11,7 +11,7 @@ def pedido_delete():
         print("=====================================")
         print(" > Pedido - Apagar")
         print("=====================================")
-        print("\n\nAtencao: Este nao pode ser deletado")
+        print("\n\nAtencao: Este nao pode retornar . ")
         print("Precisa ter cuidado")
 
         senha = 89980
@@ -24,12 +24,32 @@ def pedido_delete():
             # Primeiro digite a senha 
             input_senha = getpass.getpass("> Senha para excluir : ")
 
-            print(input_senha)
             time.sleep(1)
 
             if int(input_senha) == senha:
                 print("Senha correta")
                 time.sleep(1)
+                os.system("cls")
+                
+                print("==================================")
+                print(" > Excluir pedido")
+                print("==================================")
+                input_numero_pedido = int(input("Digite o numero do pedido : "))
+                
+                con = sqlite3.connect("database.db")
+                cur = con.cursor()
+                sql = "SELECT * FROM orders WHERE id = ?"
+                cur.execute(sql, (input_numero_pedido,) )
+                row = cur.fetchone()
+
+                if row:
+                    print("O numero de pedido existe. ")
+                    opcao = input(f"Voce realmente quer excluir o pedido : {input_numero_pedido} ?")
+                    #aqui
+                else:
+                    print("Erro: Nao foi encontrado o pedido. ")
+                    time.sleep(2)
+
             else: 
                 print("Senha incorreta...")
                 time.sleep(0.8)
