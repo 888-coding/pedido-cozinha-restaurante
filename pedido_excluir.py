@@ -44,7 +44,20 @@ def pedido_delete():
 
                 if row:
                     print("O numero de pedido existe. ")
-                    opcao = input(f"Voce realmente quer excluir o pedido : {input_numero_pedido} ?")
+                    opcao = input(f"Voce realmente quer excluir o pedido : {input_numero_pedido} ? (S/N) ").upper()
+                    
+                    if opcao == "S":
+                        sql = "DELETE FROM orders WHERE id = ?"
+                        cur.execute(sql, (input_numero_pedido,) )
+                        con.commit()
+
+                        sql = "DELETE FROM order_items WHERE order_id = ?"
+                        cur.execute(sql, (input_numero_pedido,) )
+                        con.commit()
+
+                        print("Excluido o pedido.")
+                        input("\nDigite algo para continuar ...")
+
                     #aqui
                 else:
                     print("Erro: Nao foi encontrado o pedido. ")
@@ -58,7 +71,7 @@ def pedido_delete():
                 break
         else:
             print("opcao invalida ...")
-            time.sleep(0.6)
+            time.sleep(0.8)
 
 
 
