@@ -11,7 +11,7 @@ def pedido_delete():
         print("=====================================")
         print(" > Pedido - Apagar")
         print("=====================================")
-        print("\n\nAtencao: Este nao pode retornar . ")
+        print("\n\nAtencao: Este ação nao pode retornar . ")
         print("Precisa ter cuidado")
 
         senha = 89980
@@ -47,6 +47,8 @@ def pedido_delete():
                     opcao = input(f"Voce realmente quer excluir o pedido : {input_numero_pedido} ? (S/N) ").upper()
                     
                     if opcao == "S":
+                        print(row)
+                        
                         sql = "DELETE FROM orders WHERE id = ?"
                         cur.execute(sql, (input_numero_pedido,) )
                         con.commit()
