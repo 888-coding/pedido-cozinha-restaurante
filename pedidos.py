@@ -60,11 +60,13 @@ def cadastrar():
 
 
     lista_comidas = []
+    lista_comidas_code = []
     lista_nome_chines = []
     lista_nome_portugues = [] 
     lista_precos = []
     while True:
         input_comida = input("> Numero da comida: ").upper()
+        lista_comidas_code.append(input_comida)
 
         time.sleep(0.3)
         
@@ -149,13 +151,13 @@ def cadastrar():
     linhas_imprimidas.append (str(data_pedido))
     linhas_imprimidas.append(str(hora_pedido))
     linhas_imprimidas.append("No.  " + str(numero_pedido_novo))
-    linhas_imprimidas.append("桌 Mesa:" + " >> " + str(mesa))
+    linhas_imprimidas.append("Mesa:" + " (( " + str(mesa)) + " ))"
     
     valor_total = 0 
     n = len(lista_comidas)
     for i in range(n):
         # linhas_imprimidas.append(str(i+1) + ". " + str(lista_nome_chines[i]) + " " + str(float(lista_precos[i])/100:.2f))
-        linhas_imprimidas.append(f"{i+1}. {lista_nome_chines[i]} {float(lista_precos[i])/100:.2f}")
+        linhas_imprimidas.append(f"{i+1}: {lista_comidas_code[i]}- {lista_nome_chines[i]} {float(lista_precos[i])/100:.2f}")
         linhas_imprimidas.append(str(lista_nome_portugues[i]))
         valor_total += lista_precos[i]
     linhas_imprimidas.append("--------------------")
