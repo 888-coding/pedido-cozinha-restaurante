@@ -125,6 +125,7 @@ def cadastrar():
     # data do pedido 
     data_pedido = datetime.today().strftime("%Y-%m-%d")
     hora_pedido = datetime.today().strftime("%H:%M:%S")
+    hora_pedido_impressao = datetime.today().strftime("%H:%M")
     print(f"Data : {data_pedido}")
     print(f"Horas: {hora_pedido}")
     print("===============================================")
@@ -148,10 +149,8 @@ def cadastrar():
     con.commit()
     con.close()
 
-    linhas_imprimidas.append (str(data_pedido))
-    linhas_imprimidas.append(str(hora_pedido))
-    linhas_imprimidas.append("No.  " + str(numero_pedido_novo))
-    linhas_imprimidas.append("Mesa:" + " (( " + str(mesa)) + " ))"
+    linhas_imprimidas.append (str(data_pedido) + " " + str(hora_pedido_impressao))
+    linhas_imprimidas.append("Ped. " + str(numero_pedido_novo) + "  Mesa:  " + str(mesa))
     
     valor_total = 0 
     n = len(lista_comidas)
