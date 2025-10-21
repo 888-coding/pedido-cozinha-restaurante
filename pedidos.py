@@ -193,13 +193,17 @@ def cadastrar():
         hDC.CreatePrinterDC(printer_name)
         hDC.StartDoc("Teste Python")
         hDC.StartPage()
-        font = win32ui.CreateFont({"name": "SimSum", "height": 40, "weight": 700}) # Fonte Chines
+        font_height_small = 30
+        font_weight_small = 350
+        font_height_big = 40
+        font_weight_big= 700
+        font = win32ui.CreateFont({"name": "SimSum", "height": font_height_small, "weight": font_weight_small}) # Fonte Chines
         hDC.SelectObject(font)
         left = 20
         top = 30
         for linha in linhas_imprimidas:
             hDC.TextOut(left,top,linha)
-            top += 40
+            top += 30
 
         hDC.EndPage()
         hDC.EndDoc()
