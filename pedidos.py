@@ -200,7 +200,7 @@ def cadastrar():
         font = win32ui.CreateFont({"name": "SimSum", "height": font_height_small, "weight": font_weight_small}) # Fonte Chines
         hDC.SelectObject(font)
         left = 20
-        top = 30
+        top = 10
         for linha in linhas_imprimidas:
             hDC.TextOut(left,top,linha)
             top += 30
