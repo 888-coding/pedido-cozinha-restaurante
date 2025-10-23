@@ -9,7 +9,7 @@ import win32ui
 def menu_pedidos():
     while True:
 
-        time.sleep(1)
+        time.sleep(0.5)
         os.system("cls")
 
         print("===============================")
@@ -24,15 +24,15 @@ def menu_pedidos():
         opcao = input(" > Opção : ")
         if opcao == "1":
             print("Cadastrar pedido")
-            time.sleep(1)
+            time.sleep(0.5)
             cadastrar()
         elif opcao == "2":
             print("Consultar pedido")
-            time.sleep(1)
+            time.sleep(0.5)
             consultar()
         elif opcao == "0":
             print("voltando")
-            time.sleep(0.8)
+            time.sleep(0.5)
             break
         else:
             print("Opção inválida")
