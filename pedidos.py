@@ -23,16 +23,16 @@ def menu_pedidos():
 
         opcao = input(" > Opção : ")
         if opcao == "1":
-            print("Cadastrar produto")
-            time.sleep(2)
+            print("Cadastrar pedido")
+            time.sleep(1)
             cadastrar()
         elif opcao == "2":
-            print("Consultar produto")
-            time.sleep(2)
+            print("Consultar pedido")
+            time.sleep(1)
             consultar()
         elif opcao == "0":
             print("voltando")
-            time.sleep(1)
+            time.sleep(0.8)
             break
         else:
             print("Opção inválida")
@@ -226,13 +226,14 @@ def consultar():
 
     print("\n1 . Listar pedidos de hoje ")
     print("2 . Outro periodo")
+    print("0 . Voltar")
 
     while True:
         opcao = input("Escolha a opção : ")
-        if opcao == "1" or opcao == "2":
+        if opcao == "1" or opcao == "2" or opcao == "0":
             break
 
-    time.sleep(0.5)
+    time.sleep(0.3)
     
     if opcao == "1":
         data_consulta = datetime.now().strftime("%Y-%m-%d")
@@ -247,15 +248,17 @@ def consultar():
 
         if not rows:
             print("Nao foi encontrado nada!")
-            time.sleep(1)
+            time.sleep(0.8)
+            input("Digite para continuar ...")
         else:
             for row in rows:
                print(f"Número do pedido : {row[0]}") 
                time.sleep(0.4)
-               print(f"   {row[2]}")
+               print(f"  Horario: {row[2]}")
                time.sleep(0.4)
-               print(f"   {float(row[3])/100:.2f}\n")
-    else:
+               print(f" Valor:  {float(row[3])/100:.2f}\n")
+               input("Digite para continuar ...")
+    elif opcao == "2":
         print("=============================")
         print(" > Outro periodo : ")
         print("=============================")
@@ -282,4 +285,6 @@ def consultar():
         print("==========================================")
         print(f"Valor total do periodo : {float(venda_total_periodo)/100:.2f}")
         print("==========================================")
+    else:
+        return
 
