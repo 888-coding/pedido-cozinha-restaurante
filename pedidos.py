@@ -3,7 +3,9 @@ import time
 import sqlite3
 from datetime import datetime
 import win32print
-import win32ui 
+import win32ui
+from rich.table import Table
+from rich.console import Console
 
 from pedido_excluir import pedido_excluir
 
@@ -13,15 +15,15 @@ def menu_pedidos():
         time.sleep(0.5)
         os.system("cls")
 
-        print("===============================")
-        print(" > Pedidos")
-        print("===============================")
-        print("1. Cadastrar")
-        print("2. Consultar")
-        print("3. Excluir")
-        print("0. Voltar")
+        console = Console()
+        tabela = Table()
 
-        print("==============================")
+        tabela.add_column("PEDIDDOS", style="green", no_wrap=True)
+        tabela.add_row("1. Cadastrar")
+        tabela.add_row("2. Consultar")
+        tabela.add_row("3. Excluir")
+        tabela.add_row("0. Voltar")
+        console.print(tabela)
 
         opcao = input(" > Opção : ")
         if opcao == "1":
