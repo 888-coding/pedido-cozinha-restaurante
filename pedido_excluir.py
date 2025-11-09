@@ -5,7 +5,7 @@ from rich.table import Table
 import time
 import getpass
 
-def pedido_delete():
+def pedido_excluir():
     while True:
         os.system("cls") 
         print("=====================================")
@@ -76,5 +76,3 @@ def pedido_delete():
             time.sleep(0.8)
 
 
-
-pedido_delete()
