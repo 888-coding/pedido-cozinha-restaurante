@@ -9,14 +9,15 @@ from rich.table import Table
 def menu_produtos():
     while True:
         os.system("cls")
-        print("==================================")
-        print(" > SISTEMA 7P > MENU DE PRODUTOS")
-        print("==================================")
-        print("1. Cadastrar")
-        print("2. Consultar")
-        print("3. Alterar preco")
-        print("4. Alterar nome")
-        print("0. Voltar")
+        console = Console()
+        tabela = Table()
+        tabela.add_column("PRODUTOS", style="magenta", no_wrap=True)
+        tabela.add_row("1. Cadastrar")
+        tabela.add_row("2. Consultar")
+        tabela.add_row("3. Alterar preco")
+        tabela.add_row("4. Alterar nome")
+        tabela.add_row("0. Voltar")
+        console.print(tabela)
 
         opcao = input("\n\n> Opcao: ")
 
