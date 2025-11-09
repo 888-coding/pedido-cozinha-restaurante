@@ -5,6 +5,7 @@ from datetime import datetime
 import win32print
 import win32ui 
 
+from pedido_excluir import pedido_excluir
 
 def menu_pedidos():
     while True:
@@ -17,6 +18,7 @@ def menu_pedidos():
         print("===============================")
         print("1. Cadastrar")
         print("2. Consultar")
+        print("3. Excluir")
         print("0. Voltar")
 
         print("==============================")
@@ -30,6 +32,10 @@ def menu_pedidos():
             print("Consultar pedido")
             time.sleep(0.5)
             consultar()
+        elif opcao == "3":
+            print("Excluir pedido")
+            time.sleep(0.5)
+            pedido_excluir()
         elif opcao == "0":
             print("voltando")
             time.sleep(0.5)
