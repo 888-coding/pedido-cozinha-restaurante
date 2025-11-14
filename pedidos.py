@@ -37,7 +37,7 @@ def menu_pedidos():
         elif opcao == "3":
             print("Excluir pedido")
             time.sleep(0.5)
-            pedido_excluir()
+            excluir()
         elif opcao == "0":
             print("voltando")
             time.sleep(0.5)
