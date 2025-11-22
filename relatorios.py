@@ -4,6 +4,7 @@ from datetime import date
 import time
 from rich.console import Console
 from rich.table import Table
+import msvcrt
 
 def menu_relatorios():
     while True:
@@ -18,7 +19,15 @@ def menu_relatorios():
         print("0. Voltar")
 
         print("===============================")
-        opcao = input(" > Digite a opcao : ")
+        #opcao = input(" > Digite a opcao : ")
+        print(" > Digite a opcao : ", end="", flush=True)
+        opcao = ""
+
+        while len(opcao) < 1:
+            char = msvcrt.getwch()
+            print(char, end="", flush=True)
+            opcao += char
+            
         if opcao == "0":
             break
         elif opcao == "1":
