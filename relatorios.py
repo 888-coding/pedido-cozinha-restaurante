@@ -12,15 +12,15 @@ def menu_relatorios():
         print("===============================")
         print(" > Relatorios ")
         print("===============================")
-        print("1. Relatorio de vendas por dia")
-        print("2. Relatorio de vendas por mês")
-        print("3. Relatorio de vendas por periodo")
-        print("4. Relatorio de vendas mercadoria mensal")
-        print("0. Voltar")
+        print("1. Vendas por dia")
+        print("\n2. Vendas por mês")
+        print("\n3. Vendas por periodo")
+        print("\n4. Vendas mercadoria mensal")
+        print("\n0. Voltar")
 
         print("===============================")
         #opcao = input(" > Digite a opcao : ")
-        print(" > Digite a opcao : ", end="", flush=True)
+        print("\n > Digite a opcao : ", end="", flush=True)
         opcao = ""
 
         while len(opcao) < 1:
