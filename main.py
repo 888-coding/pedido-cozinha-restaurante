@@ -1,6 +1,7 @@
 import os 
 from rich.console import Console
 from rich.table import Table
+import msvcrt
 
 from pedidos import menu_pedidos
 from produtos import menu_produtos
@@ -18,7 +19,15 @@ def menu_principal():
         tabela.add_row("0. Sair")
         console.print(tabela)
         
-        opcao = input("\n\n > Opcao: ")
+        #opcao = input("\n\n > Opcao: ")
+        print("\n\n > Opcao: ", end="", flush=True)
+        opcao = ""
+        
+        while len(opcao) < 1 :
+            char = msvcrt.getwch()
+            print(char, end="", flush=True)
+            opcao += char
+
         if opcao == "1":
             menu_pedidos()
         elif opcao == "2":
