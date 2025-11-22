@@ -160,5 +160,6 @@ def relatorio_venda_por_mercadorias_mensal():
 
     cur.close()
     con.close()
+    input("Digite algo para continuar ...")
 
 
