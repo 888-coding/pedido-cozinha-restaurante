@@ -7,7 +7,7 @@ import win32ui
 from rich.table import Table
 from rich.console import Console
 import getpass
-
+import msvcrt
 
 def menu_pedidos():
     while True:
@@ -25,22 +25,30 @@ def menu_pedidos():
         tabela.add_row("0. Voltar")
         console.print(tabela)
 
-        opcao = input(" > Opção : ")
+        print(" > Opção : ", end="", flush=True)
+        opcao = ""
+
+        while len(opcao) < 1:
+            char = msvcrt.getwch()
+            print(char, end="", flush=True)
+            opcao += char
+        print("\n")
+
         if opcao == "1":
             print("Cadastrar pedido")
-            time.sleep(0.5)
+            time.sleep(1.0)
             cadastrar()
         elif opcao == "2":
             print("Consultar pedido")
-            time.sleep(0.5)
+            time.sleep(1.0)
             consultar()
         elif opcao == "3":
             print("Excluir pedido")
-            time.sleep(0.5)
+            time.sleep(1.0)
             excluir()
         elif opcao == "0":
             print("voltando")
-            time.sleep(0.5)
+            time.sleep(1.0)
             break
         else:
             print("Opção inválida")
