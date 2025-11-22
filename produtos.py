@@ -4,7 +4,7 @@ import time
 import sqlite3
 from rich.console import Console
 from rich.table import Table
-
+import msvcrt
 
 def menu_produtos():
     while True:
@@ -19,7 +19,14 @@ def menu_produtos():
         tabela.add_row("0. Voltar")
         console.print(tabela)
 
-        opcao = input("\n\n> Opcao: ")
+        #opcao = input("\n\n> Opcao: ")
+        print("\n\n> Opcao: ", end="", flush=True)
+        opcao = ""
+
+        while len(opcao) < 1:
+            char = msvcrt.getwch()
+            print(char, end="", flush=True)
+            opcao += char
 
         if opcao == "1":
             produto_cadastrar()
