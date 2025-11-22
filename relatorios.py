@@ -118,6 +118,13 @@ def relatorio_vendas_mes():
     input("\n\nDigite algo para continuar ...")
 def relatorio_venda_por_mercadorias_mensal():
     os.system("cls")
+    tabela = Table()
+    console = Console()
+    tabela.add_column("Codigo")
+    tabela.add_column("Nome")
+    tabela.add_column("Quantidade vendida")
+
+    
     print("======================================")
     print(" > Relatorio Vendas por mercadorias")
     print("======================================")
@@ -155,9 +162,11 @@ def relatorio_venda_por_mercadorias_mensal():
             row = cur.fetchone()
 
             print(f"> Codigo do produto : {row[0]}. Nome: {row[1]} - {row[2]}  Quantidade : {rows[0]}\n")
+            tabela.add_row(f"{row[0]}", f"{row[1]} - {row[2]}", f"{rows[0]}")
     else:
         print("Não foi encontrado nenhum registro.")
 
+    console.print(tabela)
     cur.close()
     con.close()
     input("Digite algo para continuar ...")
