@@ -156,12 +156,10 @@ def relatorio_venda_por_mercadorias_mensal():
                     """
             cur.execute(sql, (id_product, mes.zfill(2), ano,))
             rows = cur.fetchone()
-            print("Quantidade por produto")
             sql = ("SELECT code, name_chinese, name_portuguese FROM products WHERE id = ?")
             cur.execute(sql, (id_product,))
             row = cur.fetchone()
 
-            print(f"> Codigo do produto : {row[0]}. Nome: {row[1]} - {row[2]}  Quantidade : {rows[0]}\n")
             tabela.add_row(f"{row[0]}", f"{row[1]} - {row[2]}", f"{rows[0]}")
     else:
         print("Não foi encontrado nenhum registro.")
