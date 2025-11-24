@@ -19,7 +19,6 @@ def menu_produtos():
         tabela.add_row("0. Voltar")
         console.print(tabela)
 
-        #opcao = input("\n\n> Opcao: ")
         print("\n\n> Opcao: ", end="", flush=True)
         opcao = ""
 
